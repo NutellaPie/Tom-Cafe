@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace TomCafe
 {
-    class Product
+    abstract class Product
     {
+        public Product() { }
+
+        public Product(string n, double p)
+        {
+            Name = n;
+            Price = p;
+        }
     }
 }
