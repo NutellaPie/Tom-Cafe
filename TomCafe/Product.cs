@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace TomCafe
 {
-    class Product
+    abstract class Product
     {
+        private string name;
+        private double prize;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public double Prize
+        {
+            get { return prize; }
+            set { prize = value; }
+        }
     }
 }
