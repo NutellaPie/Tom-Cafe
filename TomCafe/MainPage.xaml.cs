@@ -30,6 +30,11 @@ namespace TomCafe
         ValueMeal NasiLemak = new ValueMeal("Nasi Lemak", 5.40, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 00, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59));
         ValueMeal Steak = new ValueMeal("Ribeye Steak", 10.20, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 00, 00));
 
+        //Sides Items
+        Side HashBrown = new Side("Hash Brown", 2.10);
+        Side Fries = new Side("Truffle fries", 3.70);
+        Side Calamari = new Side("Calamari", 3.40);
+        Side Salad = new Side("Caesar Salad", 4.30);
         public MainPage()
         {
             this.InitializeComponent();
