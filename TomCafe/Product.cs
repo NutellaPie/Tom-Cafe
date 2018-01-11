@@ -8,19 +8,21 @@ namespace TomCafe
 {
     abstract class Product
     {
-        private string name;
-        private double prize;
+        {
+            private string name;
+        private double price;
 
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
-        public double Prize
+        public double Price
         {
-            get { return prize; }
-            set { prize = value; }
+            get { return price; }
+            set { price = value; }
         }
+
         public Product() { }
 
         public Product(string n, double p)
@@ -30,3 +32,4 @@ namespace TomCafe
         }
     }
 }
+
