@@ -9,7 +9,6 @@ namespace TomCafe
     class Beverage:Product
     {
         //Create properties
-
         private double tradeIn;
 
         public double TradeIn
@@ -19,7 +18,6 @@ namespace TomCafe
         }
 
         //Create constructors
-
         public Beverage() { }
 
         public Beverage(string n, double p, double ti):base(n, p)
@@ -27,6 +25,7 @@ namespace TomCafe
             TradeIn = ti;
         }
 
+        //Create methods
         public override double GetPrice()
         {
             return Price;
