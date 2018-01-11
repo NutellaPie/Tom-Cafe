@@ -29,6 +29,22 @@ namespace TomCafe
             set { productList = value; }
         }
 
-        
+        //Constructors
+        public MenuItem() { }
+        public MenuItem(string n, double p)
+        {
+            Name = n;
+            Price = p;
+        }
+
+        //Methods
+        public double GetTotalPrice()
+        {
+            return Price;
+        }
+        public override string ToString()
+        {
+            return String.Format("Name: {0}\tPrice: {1}\tProduct List: {2}", Name, Price, ProductList);
+        }
     }
 }
