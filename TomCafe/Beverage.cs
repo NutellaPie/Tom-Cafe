@@ -22,7 +22,7 @@ namespace TomCafe
 
         public Beverage() { }
 
-        public Beverage(string n, double p, double ti):base(n, p, ti)
+        public Beverage(string n, double p, double ti):base(n, p)
         {
             TradeIn = ti;
         }
