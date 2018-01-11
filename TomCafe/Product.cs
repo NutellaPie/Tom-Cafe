@@ -8,6 +8,7 @@ namespace TomCafe
 {
     abstract class Product
     {
+        //Properties
         private string name;
         private double price;
 
@@ -22,12 +23,19 @@ namespace TomCafe
             set { price = value; }
         }
 
+        //Constructors
         public Product() { }
-
         public Product(string n, double p)
         {
             Name = n;
             Price = p;
+        }
+
+        //Methods
+        public abstract double GetPrice();
+        public override string ToString()
+        {
+            return String.Format("Name: {0}\tPrice: {1}", Name, Price);
         }
     }
 }
