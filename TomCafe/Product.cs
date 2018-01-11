@@ -8,8 +8,7 @@ namespace TomCafe
 {
     abstract class Product
     {
-        {
-            private string name;
+        private string name;
         private double price;
 
         public string Name
