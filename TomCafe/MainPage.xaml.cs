@@ -35,6 +35,15 @@ namespace TomCafe
         Side Fries = new Side("Truffle fries", 3.70);
         Side Calamari = new Side("Calamari", 3.40);
         Side Salad = new Side("Caesar Salad", 4.30);
+
+        //Beverages
+        Beverage Cola = new Beverage("Cola", 2.85, 0.00);
+        Beverage GreenTea = new Beverage("Green Tea", 3.70, 0.85);
+        Beverage Coffee = new Beverage("Coffee", 2.70, 0.00);
+        Beverage Tea = new Beverage("Tea", 2.70, 0.00);
+        Beverage RootBeer = new Beverage("Tom's Root Beer", 9.70, 6.85);
+        Beverage Mocktail = new Beverage('MockTail', 15.90, 13.05);
+
         public MainPage()
         {
             this.InitializeComponent();
