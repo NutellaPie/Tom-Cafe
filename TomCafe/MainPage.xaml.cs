@@ -66,8 +66,11 @@ namespace TomCafe
         //Setting variable for retrieving today's DateTime
         DateTime Now = DateTime.Now;
 
-        //Creating List for Bundle Meals
+        //Creating Lists for Menu parts
+        //Bundle Meals
         List<String> BundleMeals = new List<String> { };
+        //Value Meals
+        List<String> ValueMeals = new List<String> { };
 
         public MainPage()
         {
@@ -89,14 +92,19 @@ namespace TomCafe
             //------------------------------------------------------------------------------------------
 
             //Populating Bundle Meals
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.StartTime.TimeOfDay))
+            //Clear Bundle Meals list to prevent repeats
+            BundleMeals.Clear();
+            //Add Breakfast Set if time within availability of Hotcakes with sausage
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
             {
                 BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
             }
-            if((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
+            //Add Hamburger Combo if time within availability of Hamburger
+            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
             {
                 BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", HamburgerCombo_Menu.Name, String.Format("({0}, {1}, {2})", HamburgerCombo_Menu.ProductList[0].Name, HamburgerCombo_Menu.ProductList[1].Name, HamburgerCombo_Menu.ProductList[2].Name), HamburgerCombo_Menu.Price));
             }
+            //Add Dinner Set if time within availability of Ribeye Steak
             if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
             {
                 BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", DinnerSet_Menu.Name, String.Format("({0}, {1}, {2}, {3})", DinnerSet_Menu.ProductList[0].Name, DinnerSet_Menu.ProductList[1].Name, DinnerSet_Menu.ProductList[2].Name, DinnerSet_Menu.ProductList[3].Name), DinnerSet_Menu.Price));
@@ -108,7 +116,31 @@ namespace TomCafe
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
         {
+            //Populating Value Meals List
+            //Clear Value Meals list to prevent repeats
+            ValueMeals.Clear();
 
+            //Add Hotcakes with sausage if time within availability
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
+            {
+                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Hotcakes_Menu.Name, Hotcakes_Menu.Price));
+            }
+            //Add Hamburger if time within availability
+            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
+            {
+                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Hamburger_Menu.Name, Hamburger_Menu.Price));
+            }
+            //Add Nasi Lemak as it is available at all timing
+            ValueMeals.Add(String.Format("{0}\n${1:0.00}", NasiLemak_Menu.Name, NasiLemak_Menu.Price));
+
+            //Add Ribeye steak if time within availability
+            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
+            {
+                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Steak_Menu.Name, Steak_Menu.Price));
+            }
+
+            //Display ValueMeals
+            itemsListView.ItemsSource = ValueMeals;
         }
 
         private void sidesButton_Click(object sender, RoutedEventArgs e)
@@ -124,7 +156,10 @@ namespace TomCafe
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
         {
             //Populating Bundle Meals
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.StartTime.TimeOfDay))
+            //Clear Bundle Meals list to prevent repeats
+            BundleMeals.Clear();
+
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
             {
                 BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
             }
