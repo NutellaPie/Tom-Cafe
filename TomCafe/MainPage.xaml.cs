@@ -63,13 +63,16 @@ namespace TomCafe
         MenuItem RootBeer_Menu = new MenuItem("Tom's Root Beer", 9.70);
         MenuItem Mocktail_Menu = new MenuItem("Mocktail", 15.90);
 
+        //Setting variable for retrieving today's DateTime
+        DateTime Now = DateTime.Now;
+
+        //Creating List for Bundle Meals
+        List<String> BundleMeals = new List<String> { };
+
         public MainPage()
         {
             this.InitializeComponent();
         
-            //Creating List for Bundle Meals
-            List<String> BundleMeals = new List<String> { };
-
             //Adding Products to Bundle Meals items
             //-------------------------------------------------------------------------------------------
             //Breakfast Set
@@ -85,11 +88,8 @@ namespace TomCafe
             DinnerSet_Menu.ProductList = DinnerSetProductList;
             //------------------------------------------------------------------------------------------
 
-            //Setting variable for retrieving today's DateTime
-            DateTime Now = DateTime.Now;
-
             //Populating Bundle Meals
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay))
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.StartTime.TimeOfDay))
             {
                 BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
             }
@@ -123,7 +123,22 @@ namespace TomCafe
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Populating Bundle Meals
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.StartTime.TimeOfDay))
+            {
+                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
+            }
+            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
+            {
+                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", HamburgerCombo_Menu.Name, String.Format("({0}, {1}, {2})", HamburgerCombo_Menu.ProductList[0].Name, HamburgerCombo_Menu.ProductList[1].Name, HamburgerCombo_Menu.ProductList[2].Name), HamburgerCombo_Menu.Price));
+            }
+            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
+            {
+                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", DinnerSet_Menu.Name, String.Format("({0}, {1}, {2}, {3})", DinnerSet_Menu.ProductList[0].Name, DinnerSet_Menu.ProductList[1].Name, DinnerSet_Menu.ProductList[2].Name, DinnerSet_Menu.ProductList[3].Name), DinnerSet_Menu.Price));
+            }
 
+            //Display Default Menu(Bundle Set)
+            itemsListView.ItemsSource = BundleMeals;
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
