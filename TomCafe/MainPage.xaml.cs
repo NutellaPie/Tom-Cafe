@@ -137,10 +137,16 @@ namespace TomCafe
             itemsListView.ItemsSource = BundleMeals;
         }
 
-            private void addButton_Click(object sender, RoutedEventArgs e)
+        private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
-
+            if (itemsListView.SelectedItem is MenuItem)
+            {
+                MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
+            }
+            else
+            {
+                Product SelectedItem = (Product)itemsListView.SelectedItem;
+            }
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
