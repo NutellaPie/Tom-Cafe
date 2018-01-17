@@ -210,8 +210,19 @@ namespace TomCafe
 
             private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
+            List<MenuItem> Cart = new List<MenuItem> { };
 
+            if (itemsListView.ItemsSource == BundleMeals)
+                cartsListView.ItemsSource = Cart.Add(BundleMeals[itemsListView.SelectedIndex]);
+
+            else if (itemsListView.ItemsSource == ValueMeals)
+                cartsListView.ItemsSource = ValueMeals[itemsListView.SelectedIndex];
+
+            else if (itemsListView.ItemsSource == Sides)
+                cartsListView.ItemsSource = Sides[itemsListView.SelectedIndex];
+
+            else if (itemsListView.ItemsSource == Beverages)
+                cartsListView.ItemsSource = Beverages[itemsListView.SelectedIndex];
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
