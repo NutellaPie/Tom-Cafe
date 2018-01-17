@@ -173,7 +173,19 @@ namespace TomCafe
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Populating Beverages List
+            //Clear Beverages list to prevent repeats
+            Beverages.Clear();
 
+            Beverages.Add(String.Format("{0}\n{1:0.00}", Cola.Name, Cola.Price));
+            Beverages.Add(String.Format("{0}\n{1:0.00}", GreenTea.Name, GreenTea.Price));
+            Beverages.Add(String.Format("{0}\n{1:0.00}", Coffee.Name, Coffee.Price));
+            Beverages.Add(String.Format("{0}\n{1:0.00}", Tea.Name, Tea.Price));
+            Beverages.Add(String.Format("{0}\n{1:0.00}", RootBeer.Name, RootBeer.Price));
+            Beverages.Add(String.Format("{0}\n{1:0.00}", Mocktail.Name, Mocktail.Price));
+
+            //Display Beverages
+            itemsListView.ItemsSource = Beverages;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
