@@ -161,10 +161,10 @@ namespace TomCafe
             //Clear Sides list to prevent repeats
             Sides.Clear();
 
-            Sides.Add(String.Format("{0}\n{1:0.00}", HashBrown.Name, HashBrown.Price));
-            Sides.Add(String.Format("{0}\n{1:0.00}", Fries.Name, Fries.Price));
-            Sides.Add(String.Format("{0}\n{1:0.00}", Calamari.Name, Calamari.Price));
-            Sides.Add(String.Format("{0}\n{1:0.00}", Salad.Name, Salad.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", HashBrown.Name, HashBrown.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Fries.Name, Fries.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Calamari.Name, Calamari.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Salad.Name, Salad.Price));
 
             //Display Sides
             itemsListView.ItemsSource = Sides;
@@ -177,12 +177,12 @@ namespace TomCafe
             //Clear Beverages list to prevent repeats
             Beverages.Clear();
 
-            Beverages.Add(String.Format("{0}\n{1:0.00}", Cola.Name, Cola.Price));
-            Beverages.Add(String.Format("{0}\n{1:0.00}", GreenTea.Name, GreenTea.Price));
-            Beverages.Add(String.Format("{0}\n{1:0.00}", Coffee.Name, Coffee.Price));
-            Beverages.Add(String.Format("{0}\n{1:0.00}", Tea.Name, Tea.Price));
-            Beverages.Add(String.Format("{0}\n{1:0.00}", RootBeer.Name, RootBeer.Price));
-            Beverages.Add(String.Format("{0}\n{1:0.00}", Mocktail.Name, Mocktail.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Cola.Name, Cola.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", GreenTea.Name, GreenTea.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Coffee.Name, Coffee.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Tea.Name, Tea.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", RootBeer.Name, RootBeer.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Mocktail.Name, Mocktail.Price));
 
             //Display Beverages
             itemsListView.ItemsSource = Beverages;
