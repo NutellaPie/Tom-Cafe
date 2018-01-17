@@ -33,7 +33,7 @@ namespace TomCafe
 
         public override string ToString()
         {
-            return TradeIn + base.ToString() + "\tTrade in amount $";
+            return base.ToString();
         }
 
     }

@@ -37,7 +37,7 @@
         <ListBox Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="itemsListView" Margin="10,10,10,10" />
 
         <Button Grid.Row="3" Grid.Column="4"  x:Name="orderButton" Content="Confirm Order" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="orderButton_Click"/>
-        <Button Grid.Row="7" Grid.Column="3" x:Name="addButton" Content="Add to Cart" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="addButton_Click"/>
+        <Button Grid.Row="7" Grid.Column="3" x:Name="addButton" Content="Add to Cart" Margin="10,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="addButton_Click" Width="164"/>
         <ListBox Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="cartsListView" Margin="10,10,10,10" />
         <TextBlock Grid.Row="4" Grid.Column="4" Grid.RowSpan="4" Grid.ColumnSpan="3" x:Name="displayText" Margin="10,10,10,10" TextWrapping="Wrap" Text="Choose your item" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <Button x:Name="cancelButton" Content="Cancel" Grid.Column="5" Grid.Row="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="cancelButton_Click" />

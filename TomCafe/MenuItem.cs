@@ -44,7 +44,13 @@ namespace TomCafe
         }
         public override string ToString()
         {
-            return String.Format("Name: {0}\tPrice: {1}\tProduct List: {2}", Name, Price, ProductList);
+            String Items = "";
+            foreach (Product p in ProductList)
+            {
+                Items += p.Name + ", ";
+            }
+
+            return String.Format("{0}\n({1})\n${2:0.00}", Name, Items, Price);
         }
     }
 }

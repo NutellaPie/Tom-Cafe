@@ -83,20 +83,17 @@ namespace TomCafe
         public MainPage()
         {
             this.InitializeComponent();
-        
+
             //Adding Products to Bundle Meals items
             //-------------------------------------------------------------------------------------------
             //Breakfast Set
-            List<Product> BreakfastSetProductList = new List<Product> { Hotcakes, HashBrown };
-            BreakfastSet_Menu.ProductList = BreakfastSetProductList;
+            BreakfastSet_Menu.ProductList = new List<Product> { Hotcakes, HashBrown };
 
             //Hamburger Combo
-            List<Product> HamburgerComboProductList = new List<Product> { Hamburger, Fries, Cola};
-            HamburgerCombo_Menu.ProductList = HamburgerComboProductList;
+            HamburgerCombo_Menu.ProductList = new List<Product> { Hamburger, Fries, Cola };
 
             //Dinner Set
-            List<Product> DinnerSetProductList = new List<Product> { Steak, Fries, Salad, Coffee};
-            DinnerSet_Menu.ProductList = DinnerSetProductList;
+            DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
             //------------------------------------------------------------------------------------------
 
             //Populating Bundle Meals
@@ -105,17 +102,17 @@ namespace TomCafe
             //Add Breakfast Set if time within availability of Hotcakes with sausage
             if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
+                BundleMeals.Add(BreakfastSet_Menu.ToString());
             }
             //Add Hamburger Combo if time within availability of Hamburger
             if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", HamburgerCombo_Menu.Name, String.Format("({0}, {1}, {2})", HamburgerCombo_Menu.ProductList[0].Name, HamburgerCombo_Menu.ProductList[1].Name, HamburgerCombo_Menu.ProductList[2].Name), HamburgerCombo_Menu.Price));
+                BundleMeals.Add(HamburgerCombo_Menu.ToString());
             }
             //Add Dinner Set if time within availability of Ribeye Steak
             if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", DinnerSet_Menu.Name, String.Format("({0}, {1}, {2}, {3})", DinnerSet_Menu.ProductList[0].Name, DinnerSet_Menu.ProductList[1].Name, DinnerSet_Menu.ProductList[2].Name, DinnerSet_Menu.ProductList[3].Name), DinnerSet_Menu.Price));
+                BundleMeals.Add(DinnerSet_Menu.ToString());
             }
 
             //Display Default Menu(Bundle Set)
@@ -131,20 +128,20 @@ namespace TomCafe
             //Add Hotcakes with sausage if time within availability
             if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
             {
-                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Hotcakes_Menu.Name, Hotcakes_Menu.Price));
+                ValueMeals.Add(Hotcakes.ToString());
             }
             //Add Hamburger if time within availability
             if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
             {
-                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Hamburger_Menu.Name, Hamburger_Menu.Price));
+                ValueMeals.Add(Hamburger.ToString());
             }
             //Add Nasi Lemak as it is available at all timing
-            ValueMeals.Add(String.Format("{0}\n${1:0.00}", NasiLemak_Menu.Name, NasiLemak_Menu.Price));
+            ValueMeals.Add(NasiLemak.ToString());
 
             //Add Ribeye steak if time within availability
             if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
             {
-                ValueMeals.Add(String.Format("{0}\n${1:0.00}", Steak_Menu.Name, Steak_Menu.Price));
+                ValueMeals.Add(Steak.ToString());
             }
 
             //Display ValueMeals
@@ -166,26 +163,29 @@ namespace TomCafe
             //Populating Bundle Meals
             //Clear Bundle Meals list to prevent repeats
             BundleMeals.Clear();
-
+            //Add Breakfast Set if time within availability of Hotcakes with sausage
             if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", BreakfastSet_Menu.Name, String.Format("({0}, {1})", BreakfastSet_Menu.ProductList[0].Name, BreakfastSet_Menu.ProductList[1].Name), BreakfastSet_Menu.Price));
+                BundleMeals.Add(BreakfastSet_Menu.ToString());
             }
+            //Add Hamburger Combo if time within availability of Hamburger
             if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", HamburgerCombo_Menu.Name, String.Format("({0}, {1}, {2})", HamburgerCombo_Menu.ProductList[0].Name, HamburgerCombo_Menu.ProductList[1].Name, HamburgerCombo_Menu.ProductList[2].Name), HamburgerCombo_Menu.Price));
+                BundleMeals.Add(HamburgerCombo_Menu.ToString());
             }
+            //Add Dinner Set if time within availability of Ribeye Steak
             if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
             {
-                BundleMeals.Add(String.Format("{0}\n{1}\n${2:0.00}", DinnerSet_Menu.Name, String.Format("({0}, {1}, {2}, {3})", DinnerSet_Menu.ProductList[0].Name, DinnerSet_Menu.ProductList[1].Name, DinnerSet_Menu.ProductList[2].Name, DinnerSet_Menu.ProductList[3].Name), DinnerSet_Menu.Price));
+                BundleMeals.Add(DinnerSet_Menu.ToString());
             }
 
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
 
-        private void addButton_Click(object sender, RoutedEventArgs e)
+            private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
 
         }
 

@@ -35,7 +35,7 @@ namespace TomCafe
         public abstract double GetPrice();
         public override string ToString()
         {
-            return String.Format("Name: {0}\tPrice: {1}", Name, Price);
+            return String.Format("{0}\n${1:0.00}", Name, Price);
         }
     }
 }

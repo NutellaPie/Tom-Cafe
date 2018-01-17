@@ -50,7 +50,7 @@ namespace TomCafe
 
         public override string ToString()
         {
-            return base.ToString() + "\tStart Time: " + StartTime + "\tEnd Time: " + EndTime;
+            return base.ToString();
         }
 
 
