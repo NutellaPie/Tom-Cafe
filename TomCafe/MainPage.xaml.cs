@@ -79,6 +79,10 @@ namespace TomCafe
         List<String> BundleMeals = new List<String> { };
         //Value Meals
         List<String> ValueMeals = new List<String> { };
+        //Sides
+        List<String> Sides = new List<String> { };
+        //Beverages
+        List<String> Beverages = new List<string> { };
 
         public MainPage()
         {
@@ -150,12 +154,35 @@ namespace TomCafe
 
         private void sidesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Populating Sides List
+            //Clear Sides list to prevent repeats
+            Sides.Clear();
+
+            Sides.Add(String.Format("{0}\n${1:0.00}", HashBrown.Name, HashBrown.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Fries.Name, Fries.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Calamari.Name, Calamari.Price));
+            Sides.Add(String.Format("{0}\n${1:0.00}", Salad.Name, Salad.Price));
+
+            //Display Sides
+            itemsListView.ItemsSource = Sides;
 
         }
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Populating Beverages List
+            //Clear Beverages list to prevent repeats
+            Beverages.Clear();
 
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Cola.Name, Cola.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", GreenTea.Name, GreenTea.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Coffee.Name, Coffee.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Tea.Name, Tea.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", RootBeer.Name, RootBeer.Price));
+            Beverages.Add(String.Format("{0}\n${1:0.00}", Mocktail.Name, Mocktail.Price));
+
+            //Display Beverages
+            itemsListView.ItemsSource = Beverages;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
