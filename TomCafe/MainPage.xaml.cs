@@ -65,6 +65,9 @@ namespace TomCafe
         //Beverages
         List<Beverage> Beverages = new List<Beverage> { };
 
+        //Creating list for cart items
+        List<OrderItem> CartList = new List<OrderItem> { };
+
 
         public MainPage()
         {
@@ -141,11 +144,16 @@ namespace TomCafe
         {
             if (itemsListView.SelectedItem is MenuItem)
             {
-                MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
+                OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                CartList.Add(temp);
+                cartsListView.ItemsSource = CartList;
             }
+
             else
             {
-                Product SelectedItem = (Product)itemsListView.SelectedItem;
+                OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                CartList.Add(temp);
+                cartsListView.ItemsSource = CartList;
             }
         }
 
