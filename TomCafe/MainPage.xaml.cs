@@ -42,49 +42,60 @@ namespace TomCafe
         Beverage Coffee = new Beverage("Coffee", 2.70, 0.00);
         Beverage Tea = new Beverage("Tea", 2.70, 0.00);
         Beverage RootBeer = new Beverage("Tom's Root Beer", 9.70, 6.85);
-        Beverage Mocktail = new Beverage("MockTail", 15.90, 13.05);
+        Beverage Mocktail = new Beverage("Mocktail", 15.90, 13.05);
 
         //Bundle Meals
         MenuItem BreakfastSet_Menu = new MenuItem("Breakfast Set", 7.90);
         MenuItem HamburgerCombo_Menu = new MenuItem("Hamburger Combo", 10.20);
         MenuItem DinnerSet_Menu = new MenuItem("Dinner Set", 18.50);
 
-        //Value Meals
-        MenuItem Hotcakes_Menu = new MenuItem("Hotcakes with Sausage", 6.90);
-        MenuItem Hamburger_Menu = new MenuItem("Hamburger", 7.50);
-        MenuItem NasiLemak_Menu = new MenuItem("Nasi Lemak", 5.40);
-        MenuItem Steak_Menu = new MenuItem("Ribeye Steak", 10.20);
-
-        //Sides
-        MenuItem HashBrown_Menu = new MenuItem("Hash Brown", 2.10);
-        MenuItem Fries_Menu = new MenuItem("Truffle Fries", 3.70);
-        MenuItem Calamari_Menu = new MenuItem("Calamari", 3.40);
-        MenuItem Salad_Menu = new MenuItem("Caesar Salad", 4.30);
-
-        //Beverages
-        MenuItem Cola_Menu = new MenuItem("Cola", 2.85);
-        MenuItem GreenTea_Menu = new MenuItem("Green Tea", 3.70);
-        MenuItem Coffee_Menu = new MenuItem("Coffee", 2.70);
-        MenuItem Tea_Menu = new MenuItem("Tea", 2.70);
-        MenuItem RootBeer_Menu = new MenuItem("Tom's Root Beer", 9.70);
-        MenuItem Mocktail_Menu = new MenuItem("Mocktail", 15.90);
-
         //Setting variable for retrieving today's DateTime
         DateTime Now = DateTime.Now;
 
         //Creating Lists for Menu parts
+        //List of all Menu Items
+        List<System.Collections.IList> MenuList = new List<System.Collections.IList> { };
+
         //Bundle Meals
-        List<String> BundleMeals = new List<String> { };
+        List<MenuItem> BundleMeals = new List<MenuItem> { };
         //Value Meals
-        List<String> ValueMeals = new List<String> { };
+        List<ValueMeal> ValueMeals = new List<ValueMeal> { };
         //Sides
-        List<String> Sides = new List<String> { };
+        List<Side> Sides = new List<Side> { };
         //Beverages
-        List<String> Beverages = new List<string> { };
+        List<Beverage> Beverages = new List<Beverage> { };
+
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            //Add all products lists
+
+            // BundleMeals ---------------------------------------------------------------------------------------------------------------------------------
+            //Add Breakfast Set if time within availability of Hotcakes with sausage
+            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
+            {
+                BundleMeals.Add(BreakfastSet_Menu);
+            }
+            //Add Hamburger Combo if time within availability of Hamburger
+            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
+            {
+                BundleMeals.Add(HamburgerCombo_Menu);
+            }
+            //Add Dinner Set if time within availability of Ribeye Steak
+            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
+            {
+                BundleMeals.Add(DinnerSet_Menu);
+            }
+            // ---------------------------------------------------------------------------------------------------------------------------------------------
+
+            ValueMeals = new List<ValueMeal> { Hotcakes, Hamburger, NasiLemak, Steak };
+            Sides = new List<Side> { HashBrown, Fries, Calamari, Salad };
+            Beverages = new List<Beverage> { Cola, GreenTea, Coffee, Tea, RootBeer, Mocktail };
+
+            //Master List
+            MenuList = new List<System.Collections.IList> { BundleMeals, ValueMeals, Sides, Beverages };
 
             //Adding Products to Bundle Meals items
             //-------------------------------------------------------------------------------------------
@@ -96,133 +107,46 @@ namespace TomCafe
 
             //Dinner Set
             DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
-            //------------------------------------------------------------------------------------------
-
-            //Populating Bundle Meals
-            //Clear Bundle Meals list to prevent repeats
-            BundleMeals.Clear();
-            //Add Breakfast Set if time within availability of Hotcakes with sausage
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(BreakfastSet_Menu.ToString());
-            }
-            //Add Hamburger Combo if time within availability of Hamburger
-            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(HamburgerCombo_Menu.ToString());
-            }
-            //Add Dinner Set if time within availability of Ribeye Steak
-            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(DinnerSet_Menu.ToString());
-            }
-
+            //------------------------------------------------------------------------------------------            
+            
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
         {
-            //Populating Value Meals List
-            //Clear Value Meals list to prevent repeats
-            ValueMeals.Clear();
-
-            //Add Hotcakes with sausage if time within availability
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
-            {
-                ValueMeals.Add(Hotcakes.ToString());
-            }
-            //Add Hamburger if time within availability
-            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
-            {
-                ValueMeals.Add(Hamburger.ToString());
-            }
-            //Add Nasi Lemak as it is available at all timing
-            ValueMeals.Add(NasiLemak.ToString());
-
-            //Add Ribeye steak if time within availability
-            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
-            {
-                ValueMeals.Add(Steak.ToString());
-            }
-
             //Display ValueMeals
             itemsListView.ItemsSource = ValueMeals;
         }
 
         private void sidesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Populating Sides List
-            //Clear Sides list to prevent repeats
-            Sides.Clear();
-
-            Sides.Add(HashBrown.ToString());
-            Sides.Add(Fries.ToString());
-            Sides.Add(Calamari.ToString());
-            Sides.Add(Salad.ToString());
-
             //Display Sides
             itemsListView.ItemsSource = Sides;
-
         }
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Populating Beverages List
-            //Clear Beverages list to prevent repeats
-            Beverages.Clear();
-
-            Beverages.Add(Cola.ToString());
-            Beverages.Add(GreenTea.ToString());
-            Beverages.Add(Coffee.ToString());
-            Beverages.Add(Tea.ToString());
-            Beverages.Add(RootBeer.ToString());
-            Beverages.Add(Mocktail.ToString());
-
             //Display Beverages
             itemsListView.ItemsSource = Beverages;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Populating Bundle Meals
-            //Clear Bundle Meals list to prevent repeats
-            BundleMeals.Clear();
-            //Add Breakfast Set if time within availability of Hotcakes with sausage
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(BreakfastSet_Menu.ToString());
-            }
-            //Add Hamburger Combo if time within availability of Hamburger
-            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(HamburgerCombo_Menu.ToString());
-            }
-            //Add Dinner Set if time within availability of Ribeye Steak
-            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
-            {
-                BundleMeals.Add(DinnerSet_Menu.ToString());
-            }
-
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
 
-            private void addButton_Click(object sender, RoutedEventArgs e)
+        private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            List<MenuItem> Cart = new List<MenuItem> { };
-
-            if (itemsListView.ItemsSource == BundleMeals)
-                cartsListView.ItemsSource = Cart.Add(BundleMeals[itemsListView.SelectedIndex]);
-
-            else if (itemsListView.ItemsSource == ValueMeals)
-                cartsListView.ItemsSource = ValueMeals[itemsListView.SelectedIndex];
-
-            else if (itemsListView.ItemsSource == Sides)
-                cartsListView.ItemsSource = Sides[itemsListView.SelectedIndex];
-
-            else if (itemsListView.ItemsSource == Beverages)
-                cartsListView.ItemsSource = Beverages[itemsListView.SelectedIndex];
+            if (itemsListView.SelectedItem is MenuItem)
+            {
+                MenuItem SelectedItem = (MenuItem)itemsListView.SelectedItem;
+            }
+            else
+            {
+                Product SelectedItem = (Product)itemsListView.SelectedItem;
+            }
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
