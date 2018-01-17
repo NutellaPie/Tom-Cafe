@@ -45,17 +45,25 @@ namespace TomCafe
         Beverage Mocktail = new Beverage("MockTail", 15.90, 13.05);
 
         //Menu Items
+
+        //Bundle Meals
         MenuItem BreakfastSet_Menu = new MenuItem("Breakfast Set", 7.90);
         MenuItem HamburgerCombo_Menu = new MenuItem("Hamburger Combo", 10.20);
         MenuItem DinnerSet_Menu = new MenuItem("Dinner Set", 18.50);
+
+        //Value Meals
         MenuItem Hotcakes_Menu = new MenuItem("Hotcakes with Sausage", 6.90);
         MenuItem Hamburger_Menu = new MenuItem("Hamburger", 7.50);
         MenuItem NasiLemak_Menu = new MenuItem("Nasi Lemak", 5.40);
         MenuItem Steak_Menu = new MenuItem("Ribeye Steak", 10.20);
+
+        //Sides
         MenuItem HashBrown_Menu = new MenuItem("Hash Brown", 2.10);
         MenuItem Fries_Menu = new MenuItem("Truffle Fries", 3.70);
         MenuItem Calamari_Menu = new MenuItem("Calamari", 3.40);
         MenuItem Salad_Menu = new MenuItem("Caesar Salad", 4.30);
+
+        //Beverages
         MenuItem Cola_Menu = new MenuItem("Cola", 2.85);
         MenuItem GreenTea_Menu = new MenuItem("Green Tea", 3.70);
         MenuItem Coffee_Menu = new MenuItem("Coffee", 2.70);
