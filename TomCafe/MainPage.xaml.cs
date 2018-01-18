@@ -111,7 +111,7 @@ namespace TomCafe
             //Dinner Set
             DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
             //------------------------------------------------------------------------------------------            
-            
+
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
@@ -142,18 +142,34 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            cartsListView.ItemsSource = null;
+
+            foreach (OrderItem oi in CartList)
+            {
+                if ((MenuItem)itemsListView.SelectedItem == oi.Item)
+                {
+                    oi.AddQty();
+                    break;
+                }
+            }
+
             if (itemsListView.SelectedItem is MenuItem)
             {
-                OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
-                CartList.Add(temp);
+                CartList.Add(new OrderItem((MenuItem)itemsListView.SelectedItem));
                 cartsListView.ItemsSource = CartList;
             }
 
             else
             {
-                OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-                CartList.Add(temp);
+                CartList.Add(new OrderItem(new MenuItem(((Product)(itemsListView.SelectedItem)).Name, ((Product)(itemsListView.SelectedItem)).Price)));
                 cartsListView.ItemsSource = CartList;
+                //testing.Text = String.Format("{0}", new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+
+                //MenuItem temp = new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price);
+                //temp.ProductList.Add((Product)itemsListView.SelectedItem);
+
+                //CartList.Add(new OrderItem(temp));
+                //cartsListView.ItemsSource = CartList;
             }
         }
 

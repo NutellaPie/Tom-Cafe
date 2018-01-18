@@ -42,6 +42,7 @@ namespace TomCafe
         {
             return Price;
         }
+
         public override string ToString()
         {
             String Items = "";
