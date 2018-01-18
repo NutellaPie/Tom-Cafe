@@ -53,7 +53,7 @@ namespace TomCafe
         }
         public override string ToString()
         {
-            return String.Format("Quantity: {0}\tItem: {1}", Quantity, Item);
+            return String.Format("{0} x{1}\n${2:0.00}", Item.Name, Quantity, Item.Price);
         }
     }
 }

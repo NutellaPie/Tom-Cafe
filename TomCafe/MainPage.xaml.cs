@@ -111,7 +111,7 @@ namespace TomCafe
             //Dinner Set
             DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
             //------------------------------------------------------------------------------------------            
-
+            
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
@@ -142,34 +142,28 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            cartsListView.ItemsSource = null;
-
-            foreach (OrderItem oi in CartList)
-            {
-                if ((MenuItem)itemsListView.SelectedItem == oi.Item)
-                {
-                    oi.AddQty();
-                    break;
-                }
-            }
-
             if (itemsListView.SelectedItem is MenuItem)
             {
-                CartList.Add(new OrderItem((MenuItem)itemsListView.SelectedItem));
+                //Create new OrderItem for selected bundle
+                OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                temp.AddQty();
+
+                //Add orderitem to cart(cartList)
+                CartList.Add(temp);
+                cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
             }
 
             else
             {
-                CartList.Add(new OrderItem(new MenuItem(((Product)(itemsListView.SelectedItem)).Name, ((Product)(itemsListView.SelectedItem)).Price)));
+                //Create new OrderItem for selected product(Value Meal, Side or Beverage)
+                OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                temp.AddQty();
+
+                //Add orderitem to cart(cartList)
+                CartList.Add(temp);
+                cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
-                //testing.Text = String.Format("{0}", new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-
-                //MenuItem temp = new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price);
-                //temp.ProductList.Add((Product)itemsListView.SelectedItem);
-
-                //CartList.Add(new OrderItem(temp));
-                //cartsListView.ItemsSource = CartList;
             }
         }
 
