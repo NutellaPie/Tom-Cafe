@@ -144,14 +144,18 @@ namespace TomCafe
         {
             if (itemsListView.SelectedItem is MenuItem)
             {
-                CartList.Add(new OrderItem((MenuItem)itemsListView.SelectedItem));
+                OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                temp.AddQty();
+                CartList.Add(temp);
                 cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
             }
 
             else
             {
-                CartList.Add(new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price)));
+                OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                temp.AddQty();
+                CartList.Add(temp);
                 cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
             }
