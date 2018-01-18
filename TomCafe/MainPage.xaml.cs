@@ -144,8 +144,11 @@ namespace TomCafe
         {
             if (itemsListView.SelectedItem is MenuItem)
             {
+                //Create new OrderItem for selected bundle
                 OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
                 temp.AddQty();
+
+                //Add orderitem to cart(cartList)
                 CartList.Add(temp);
                 cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
@@ -153,8 +156,11 @@ namespace TomCafe
 
             else
             {
+                //Create new OrderItem for selected product(Value Meal, Side or Beverage)
                 OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
                 temp.AddQty();
+
+                //Add orderitem to cart(cartList)
                 CartList.Add(temp);
                 cartsListView.ItemsSource = null; //Resetting the listview
                 cartsListView.ItemsSource = CartList;
