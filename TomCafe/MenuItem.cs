@@ -11,7 +11,7 @@ namespace TomCafe
         //Properties
         private string name;
         private double price;
-        private List<Product> productList;
+        private List<Product> productList = new List<Product> { };
 
         public string Name
         {
