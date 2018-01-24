@@ -199,7 +199,7 @@ namespace TomCafe
                 Order.ItemList[index].AddQty();
             }
 
-            displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe! Choose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+            displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
         }
     }
 }
