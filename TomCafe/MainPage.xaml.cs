@@ -65,11 +65,11 @@ namespace TomCafe
         //Beverages
         List<Beverage> Beverages = new List<Beverage> { };
 
-        //Creating list for cart items
-        List<OrderItem> CartList = new List<OrderItem> { };
-
         //Creating OrderItem for insertion into cart
         OrderItem oi = new OrderItem();
+
+        //Create new Order
+        Order Order = new Order();
 
 
         public MainPage()
@@ -150,8 +150,6 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            double total = 0;
-
             if (itemsListView.SelectedItem is MenuItem)
             {
                 oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
@@ -165,7 +163,7 @@ namespace TomCafe
             }
 
             cartsListView.ItemsSource = null; //Resetting the listview
-            cartsListView.ItemsSource = CartList;
+            cartsListView.ItemsSource = Order.ItemList;
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
@@ -186,17 +184,20 @@ namespace TomCafe
         //New Methods
         private void AddToCart()
         {
-            int index = CartList.FindIndex(x => x.Item.Name == oi.Item.Name);
+            int index = Order.ItemList.FindIndex(x => x.Item.Name == oi.Item.Name);
 
             if (index == -1)
             {
                 oi.AddQty();
-                CartList.Add(oi);
+                Order.ItemList.Add(oi);
             }
+
             else
             {
-                CartList[index].AddQty();
+                Order.ItemList[index].AddQty();
             }
+
+            displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe! Choose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
         }
     }
 }
