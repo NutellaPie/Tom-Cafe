@@ -150,6 +150,9 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            //Clear cartsListView
+            cartsListView.ItemsSource = null;
+
             if (itemsListView.SelectedItem is MenuItem)
             {
                 oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
@@ -173,12 +176,19 @@ namespace TomCafe
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            //Clear cartsListView
+            cartsListView.ItemsSource = null;
 
+            Order.ItemList.Clear();
+
+            displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
+            Order.Remove(cartsListView.SelectedIndex);
 
+            displayText.Text = String.Format("{0} has been removed.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", ((OrderItem)cartsListView.SelectedItem).Item.Name, Order.GetTotalAmt());
         }
 
         //New Methods
