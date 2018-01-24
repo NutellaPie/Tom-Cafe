@@ -42,6 +42,5 @@
         <TextBlock Grid.Row="4" Grid.Column="4" Grid.RowSpan="4" Grid.ColumnSpan="3" x:Name="displayText" Margin="10,10,10,10" TextWrapping="Wrap" Text="Choose your item" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <Button x:Name="cancelButton" Content="Cancel" Grid.Column="5" Grid.Row="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="cancelButton_Click" />
         <Button x:Name="removeButton" Content="Remove Item" Grid.Column="6" Grid.Row="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="removeButton_Click"/>
-        <TextBlock x:Name="testing" Grid.Column="1" HorizontalAlignment="Left" Margin="98.5,41,0,0" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="44" Width="228"/>
     </Grid>
 </Page>
