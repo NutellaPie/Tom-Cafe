@@ -179,6 +179,7 @@ namespace TomCafe
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            // If customer attempts to clear a list with menu items
             if (Order.ItemList.Count != 0)
             {
                 // Clear cartsListView
@@ -193,21 +194,47 @@ namespace TomCafe
                 itemsListView.ItemsSource = BundleMeals;
             }
 
+            // If customer tries to clear cart even when no items are in it
             else
+            {
                 displayText.Text = String.Format("There is nothing in your cart.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
+
+                // Return customer to Bundle Meals menu
+                itemsListView.ItemsSource = BundleMeals;
+            }
+
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
-            Order.Remove(cartsListView.SelectedIndex);
+            // If customer selected an item correctly
+            if (cartsListView.SelectedItem is OrderItem)
+            {
+                Order.Remove(cartsListView.SelectedIndex);
 
-            displayText.Text = String.Format("{0} has been removed.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", ((OrderItem)cartsListView.SelectedItem).Item.Name, Order.GetTotalAmt());
+                displayText.Text = String.Format("{0} has been removed.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", ((OrderItem)cartsListView.SelectedItem).Item.Name, Order.GetTotalAmt());
 
-            // Clear cartsListView
-            cartsListView.ItemsSource = null;
+                // Clear cartsListView
+                cartsListView.ItemsSource = null;
 
-            // Display cartsListView to show updated quantity
-            cartsListView.ItemsSource = Order.ItemList;
+                // Display cartsListView to show updated quantity
+                cartsListView.ItemsSource = Order.ItemList;
+            }
+
+            // If customer's cart still has item but tries to remove an item without selecting something
+            else if ((Order.ItemList.Count >= 1) && (cartsListView.SelectedItem is null))
+            {
+                displayText.Text = String.Format("Please select an item.\nTotal: ${0:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", Order.GetTotalAmt());
+            }
+
+            // If customer tries to remove something from an empty cart
+            else
+            {
+                displayText.Text = String.Format("There is nothing in your cart.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
+
+                // Return customer to Bundle Meals menu
+                itemsListView.ItemsSource = BundleMeals;
+            }
         }
 
         // New Methods
