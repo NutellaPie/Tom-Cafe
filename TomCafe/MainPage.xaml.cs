@@ -73,6 +73,9 @@ namespace TomCafe
         {
             this.InitializeComponent();
 
+            //Display greeting message
+            displayText.Text = "Welcome to Tom's Cafe!\n\nChoose your item from the menu.";
+
             //Add all products lists
 
             // BundleMeals ---------------------------------------------------------------------------------------------------------------------------------
@@ -114,6 +117,8 @@ namespace TomCafe
             
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
+
+            
         }
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
@@ -142,6 +147,8 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            double total = 0;
+
             if (itemsListView.SelectedItem is MenuItem)
             {
                 //Create new OrderItem for selected bundle
