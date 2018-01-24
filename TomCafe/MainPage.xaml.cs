@@ -80,28 +80,31 @@ namespace TomCafe
             displayText.Text = "Welcome to Tom's Cafe!\n\nChoose your item from the menu.";
 
             //Add all products lists
+            Sides = new List<Side> { HashBrown, Fries, Calamari, Salad };
+            Beverages = new List<Beverage> { Cola, GreenTea, Coffee, Tea, RootBeer, Mocktail };
 
-            // BundleMeals ---------------------------------------------------------------------------------------------------------------------------------
-            //Add Breakfast Set if time within availability of Hotcakes with sausage
+            // BundleMeals/ValueMeals ---------------------------------------------------------------------------------------------------------------------------------
+            //Add Breakfast Set & Hotcakes if time within availability of Hotcakes with sausage
             if (Hotcakes.IsAvailable())
             {
                 BundleMeals.Add(BreakfastSet_Menu);
+                ValueMeals.Add(Hotcakes);
             }
-            //Add Hamburger Combo if time within availability of Hamburger
+            //Add Hamburger Combo & Hamburger if time within availability of Hamburger
             if (Hamburger.IsAvailable())
             {
                 BundleMeals.Add(HamburgerCombo_Menu);
+                ValueMeals.Add(Hamburger);
             }
-            //Add Dinner Set if time within availability of Ribeye Steak
+            //Add Nasi Lemak as it is always available
+            ValueMeals.Add(NasiLemak);
+            //Add Dinner Set & Steak if time within availability of Ribeye Steak
             if (Steak.IsAvailable())
             {
                 BundleMeals.Add(DinnerSet_Menu);
+                ValueMeals.Add(Steak);
             }
             // ---------------------------------------------------------------------------------------------------------------------------------------------
-
-            ValueMeals = new List<ValueMeal> { Hotcakes, Hamburger, NasiLemak, Steak };
-            Sides = new List<Side> { HashBrown, Fries, Calamari, Salad };
-            Beverages = new List<Beverage> { Cola, GreenTea, Coffee, Tea, RootBeer, Mocktail };
 
             //Master List
             MenuList = new List<System.Collections.IList> { BundleMeals, ValueMeals, Sides, Beverages };
@@ -199,7 +202,8 @@ namespace TomCafe
                 Order.ItemList[index].AddQty();
             }
 
-            displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+
+            //displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
         }
     }
 }
