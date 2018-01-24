@@ -124,7 +124,7 @@ namespace TomCafe
             // Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
 
-            
+
         }
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
@@ -179,16 +179,22 @@ namespace TomCafe
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Clear cartsListView
-            cartsListView.ItemsSource = null;
+            if (Order.ItemList.Count != 0)
+            {
+                // Clear cartsListView
+                cartsListView.ItemsSource = null;
 
-            // Clear Order.ItemList
-            Order.ItemList.Clear();
+                // Clear Order.ItemList
+                Order.ItemList.Clear();
 
-            displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
+                displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
 
-            // Return customer to Bundle Meals menu
-            itemsListView.ItemsSource = BundleMeals;
+                // Return customer to Bundle Meals menu
+                itemsListView.ItemsSource = BundleMeals;
+            }
+
+            else
+                displayText.Text = String.Format("There is nothing in your cart.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
