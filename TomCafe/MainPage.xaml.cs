@@ -28,13 +28,13 @@ namespace TomCafe
         ValueMeal Hotcakes = new ValueMeal("Hotcake with sausage", 6.90, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 07, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 14, 00, 00));
         ValueMeal Hamburger = new ValueMeal("Hamburger", 7.50, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 00));
         ValueMeal NasiLemak = new ValueMeal("Nasi Lemak", 5.40, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 00, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59));
-        ValueMeal Steak = new ValueMeal("Ribeye Steak", 10.20, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 00, 00));
+        ValueMeal Steak = new ValueMeal("Ribeye steak", 10.20, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 00, 00), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 00, 00));
 
         //Sides Items
-        Side HashBrown = new Side("Hash Brown", 2.10);
+        Side HashBrown = new Side("Hash brown", 2.10);
         Side Fries = new Side("Truffle fries", 3.70);
         Side Calamari = new Side("Calamari", 3.40);
-        Side Salad = new Side("Caesar Salad", 4.30);
+        Side Salad = new Side("Caesar salad", 4.30);
 
         //Beverages
         Beverage Cola = new Beverage("Cola", 2.85, 0.00);
@@ -168,7 +168,7 @@ namespace TomCafe
                 AddToCart();
             }
 
-            cartsListView.ItemsSource = null; //Resetting the listview
+            displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
             cartsListView.ItemsSource = Order.ItemList;
         }
 
@@ -211,9 +211,6 @@ namespace TomCafe
                 //Add quantity if item already in cart
                 Order.ItemList[index].AddQty();
             }
-
-
-            //displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
         }
     }
 }
