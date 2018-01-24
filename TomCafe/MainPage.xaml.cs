@@ -83,17 +83,17 @@ namespace TomCafe
 
             // BundleMeals ---------------------------------------------------------------------------------------------------------------------------------
             //Add Breakfast Set if time within availability of Hotcakes with sausage
-            if ((Now.TimeOfDay > Hotcakes.StartTime.TimeOfDay) && (Now.TimeOfDay < Hotcakes.EndTime.TimeOfDay))
+            if (Hotcakes.IsAvailable())
             {
                 BundleMeals.Add(BreakfastSet_Menu);
             }
             //Add Hamburger Combo if time within availability of Hamburger
-            if ((Now.TimeOfDay > Hamburger.StartTime.TimeOfDay) && (Now.TimeOfDay < Hamburger.EndTime.TimeOfDay))
+            if (Hamburger.IsAvailable())
             {
                 BundleMeals.Add(HamburgerCombo_Menu);
             }
             //Add Dinner Set if time within availability of Ribeye Steak
-            if ((Now.TimeOfDay > Steak.StartTime.TimeOfDay) && (Now.TimeOfDay < Steak.EndTime.TimeOfDay))
+            if (Steak.IsAvailable())
             {
                 BundleMeals.Add(DinnerSet_Menu);
             }
@@ -184,16 +184,18 @@ namespace TomCafe
         //New Methods
         private void AddToCart()
         {
-            int index = Order.ItemList.FindIndex(x => x.Item.Name == oi.Item.Name);
-
+            //Check if selected item in already in the cart
+            int index = CartList.FindIndex(x => x.Item.Name == oi.Item.Name);
             if (index == -1)
             {
+                //Add item to cart if item not in cart
                 oi.AddQty();
                 Order.ItemList.Add(oi);
             }
 
             else
             {
+                //Add quantity if item already in cart
                 Order.ItemList[index].AddQty();
             }
 

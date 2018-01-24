@@ -41,7 +41,7 @@ namespace TomCafe
 
         public bool IsAvailable()
         {
-            if (DateTime.Now >= StartTime && DateTime.Now <= EndTime)
+            if (DateTime.Now.TimeOfDay >= StartTime.TimeOfDay && DateTime.Now.TimeOfDay <= EndTime.TimeOfDay)
                 return true;
 
             else
