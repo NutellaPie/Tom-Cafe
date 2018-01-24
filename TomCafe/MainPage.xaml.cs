@@ -174,7 +174,20 @@ namespace TomCafe
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Order.ItemList.Count == 0)
+            {
+                displayText.Text = "Please select an item\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.";
+            }
+            else
+            {
+                //Increase the receipt number by 1 (Everytime order is confirmed)
+                Order.OrderNo += 1;
+                displayText.Text = "Tom's Cafe\n\n" + Order.ToString();
 
+                //Clear order after confirmation
+                cartsListView.ItemsSource = null;
+                Order.ItemList.Clear();
+            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -182,6 +195,7 @@ namespace TomCafe
             //Clear cartsListView
             cartsListView.ItemsSource = null;
 
+            //Clear all items from Order object(cart)
             Order.ItemList.Clear();
 
             displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");

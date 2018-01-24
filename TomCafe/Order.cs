@@ -52,7 +52,13 @@ namespace TomCafe
 
         public override string ToString()
         {
-            return base.ToString() + "Order Number: " + OrderNo + "Item List: " + ItemList;
+            String OrderList = "";
+            foreach (OrderItem o in ItemList)
+            {
+                OrderList += String.Format("{0} {1} ${2:0.00}", o.Quantity.ToString().PadRight(5), o.Item.Name.PadRight(30), o.GetItemTotalAmt()) + "\n";
+            }
+
+            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, OrderList, "Total".PadRight(37), GetTotalAmt());
         }
 
     }
