@@ -182,9 +182,13 @@ namespace TomCafe
             //Clear cartsListView
             cartsListView.ItemsSource = null;
 
+            //Clear Order.ItemList
             Order.ItemList.Clear();
 
             displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
+
+            //Return customer to Bundle Meals menu
+            itemsListView.ItemsSource = BundleMeals;
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
@@ -192,6 +196,12 @@ namespace TomCafe
             Order.Remove(cartsListView.SelectedIndex);
 
             displayText.Text = String.Format("{0} has been removed.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", ((OrderItem)cartsListView.SelectedItem).Item.Name, Order.GetTotalAmt());
+
+            //Clear cartsListView
+            cartsListView.ItemsSource = null;
+
+            //Display cartsListView to show updated quantity
+            cartsListView.ItemsSource = Order.ItemList;
         }
 
         //New Methods
@@ -213,7 +223,7 @@ namespace TomCafe
             }
 
 
-            //displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+            displayText.Text = String.Format("{0} Added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
         }
     }
 }

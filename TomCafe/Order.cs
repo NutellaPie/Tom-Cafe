@@ -35,7 +35,7 @@ namespace TomCafe
 
         public void Remove(int index)
         {
-            itemList.RemoveAt(index);
+            itemList[index].Quantity -= 1;
         }
 
         public double GetTotalAmt()
