@@ -185,7 +185,7 @@ namespace TomCafe
         private void AddToCart()
         {
             //Check if selected item in already in the cart
-            int index = CartList.FindIndex(x => x.Item.Name == oi.Item.Name);
+            int index = Order.ItemList.FindIndex(x => x.Item.Name == oi.Item.Name);
             if (index == -1)
             {
                 //Add item to cart if item not in cart
