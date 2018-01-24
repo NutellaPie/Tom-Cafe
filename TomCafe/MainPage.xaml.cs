@@ -68,6 +68,9 @@ namespace TomCafe
         //Creating list for cart items
         List<OrderItem> CartList = new List<OrderItem> { };
 
+        //Creating OrderItem for insertion into cart
+        OrderItem oi = new OrderItem();
+
 
         public MainPage()
         {
@@ -114,7 +117,7 @@ namespace TomCafe
             //Dinner Set
             DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
             //------------------------------------------------------------------------------------------            
-            
+
             //Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
 
@@ -151,27 +154,18 @@ namespace TomCafe
 
             if (itemsListView.SelectedItem is MenuItem)
             {
-                //Create new OrderItem for selected bundle
-                OrderItem temp = new OrderItem((MenuItem)itemsListView.SelectedItem);
-                temp.AddQty();
-
-                //Add orderitem to cart(cartList)
-                CartList.Add(temp);
-                cartsListView.ItemsSource = null; //Resetting the listview
-                cartsListView.ItemsSource = CartList;
+                oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                AddToCart();
             }
 
             else
             {
-                //Create new OrderItem for selected product(Value Meal, Side or Beverage)
-                OrderItem temp = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-                temp.AddQty();
-
-                //Add orderitem to cart(cartList)
-                CartList.Add(temp);
-                cartsListView.ItemsSource = null; //Resetting the listview
-                cartsListView.ItemsSource = CartList;
+                oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                AddToCart();
             }
+
+            cartsListView.ItemsSource = null; //Resetting the listview
+            cartsListView.ItemsSource = CartList;
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
@@ -187,6 +181,22 @@ namespace TomCafe
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        //New Methods
+        private void AddToCart()
+        {
+            int index = CartList.FindIndex(x => x.Item.Name == oi.Item.Name);
+
+            if (index == -1)
+            {
+                oi.AddQty();
+                CartList.Add(oi);
+            }
+            else
+            {
+                CartList[index].AddQty();
+            }
         }
     }
 }
