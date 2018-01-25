@@ -178,24 +178,23 @@ namespace TomCafe
             // If user has selected an item on the menu
             if (itemsListView.SelectedItem != null)
             {
+                // Run only when there is an option to trade in drink
                 if (TradeInFlag)
                 {
-                    // Change Beverage to selected beverage
-                    oi.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
-                    oi.Item.Price += oi.Item.ProductList[BeverageIndex].GetPrice();
+                    // Creating new menu item for modified item
+                    MenuItem ModifiedItem = oi.Item;
 
-                    AddToCart();
+                    // Creating new order for modified item
+                    OrderItem oi_modified = new OrderItem(ModifiedItem);
+                    oi_modified.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
+
+                    AddToCart(oi_modified);
                     TradeInFlag = false;
 
                     displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
 
+                    // Return menu display to default after adding to cart
                     itemsListView.ItemsSource = BundleMeals;
-
-                    // Hamburger Combo
-                    HamburgerCombo_Menu.ProductList = new List<Product> { Hamburger, Fries, Cola };
-
-                    // Dinner Set
-                    DinnerSet_Menu.ProductList = new List<Product> { Steak, Fries, Salad, Coffee };
                 }
 
                 else
@@ -223,14 +222,17 @@ namespace TomCafe
 
                         else
                         {
-                            AddToCart();
+                            AddToCart(oi);
                         }
                     }
 
                     else
                     {
                         oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-                        AddToCart();
+
+                        // Add product to product list of new order/menu item
+                        oi.Item.ProductList.Add((Product)itemsListView.SelectedItem);
+                        AddToCart(oi);
                     }
                 }
 
@@ -323,15 +325,15 @@ namespace TomCafe
         }
 
         // New Methods
-        private void AddToCart()
+        private void AddToCart(OrderItem o)
         {
             // Check if selected item in already in the cart
-            int index = Order.ItemList.FindIndex(x => x.Item.ProductList == oi.Item.ProductList);
+            int index = Order.ItemList.FindIndex(x => x.Item.ProductList.SequenceEqual(o.Item.ProductList));
             if (index == -1)
             {
                 // Add item to cart if item not in cart
-                oi.AddQty();
-                Order.ItemList.Add(oi);
+                o.AddQty();
+                Order.ItemList.Add(o);
             }
 
             else
