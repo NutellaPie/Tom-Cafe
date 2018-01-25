@@ -28,7 +28,6 @@ namespace TomCafe
         //Create methods
         public override double GetPrice()
         {
-            return Price;
         }
 
         public override string ToString()
