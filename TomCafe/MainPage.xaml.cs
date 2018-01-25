@@ -153,23 +153,31 @@ namespace TomCafe
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            // Clear cartsListView
-            cartsListView.ItemsSource = null;
-
-            if (itemsListView.SelectedItem is MenuItem)
+            // If user has selected an item on the menu
+            if (itemsListView.SelectedItem != null)
             {
-                oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
-                AddToCart();
+                // Clear cartsListView
+                cartsListView.ItemsSource = null;
+
+                if (itemsListView.SelectedItem is MenuItem)
+                {
+                    oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                    AddToCart();
+                }
+
+                else
+                {
+                    oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                    AddToCart();
+                }
+
+                displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+                cartsListView.ItemsSource = Order.ItemList;
             }
 
+            // If user did not select an item on the menu
             else
-            {
-                oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-                AddToCart();
-            }
-
-            displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
-            cartsListView.ItemsSource = Order.ItemList;
+                displayText.Text = String.Format("Please select an item on the menu to add to your cart.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
@@ -198,8 +206,8 @@ namespace TomCafe
                 // Clear cartsListView
                 cartsListView.ItemsSource = null;
 
-            //Clear all items from Order object(cart)
-            Order.ItemList.Clear();
+                //Clear all items from Order object(cart)
+                Order.ItemList.Clear();
 
                 displayText.Text = String.Format("Your order has been cancelled.\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.");
 
