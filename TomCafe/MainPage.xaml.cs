@@ -153,6 +153,12 @@ namespace TomCafe
         {
             //Reset flag
             TradeInFlag = false;
+    
+            // Reset trade in value
+            foreach (Beverage b in Beverages)
+            {
+                b.TradeIn = 0.00;
+            }
 
             // Display Beverages
             itemsListView.ItemsSource = Beverages;
@@ -196,6 +202,8 @@ namespace TomCafe
                             {
                                 b.TradeIn = oi.Item.ProductList[BeverageIndex].Price;
                             }
+
+                            // Display list of beverages for tradein
                             itemsListView.ItemsSource = Beverages;
                             TradeInFlag = true;
                         }
