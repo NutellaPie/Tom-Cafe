@@ -180,8 +180,10 @@ namespace TomCafe
             {
                 if (TradeInFlag)
                 {
+                    // Change Beverage to selected beverage
                     oi.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
                     oi.Item.Price += oi.Item.ProductList[BeverageIndex].GetPrice();
+
                     AddToCart();
                     TradeInFlag = false;
 
@@ -316,7 +318,7 @@ namespace TomCafe
         private void AddToCart()
         {
             // Check if selected item in already in the cart
-            int index = Order.ItemList.FindIndex(x => x.Item.Name == oi.Item.Name);
+            int index = Order.ItemList.FindIndex(x => x.Item.ProductList == oi.Item.ProductList);
             if (index == -1)
             {
                 // Add item to cart if item not in cart
