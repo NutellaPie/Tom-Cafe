@@ -38,11 +38,11 @@ namespace TomCafe
 
         // Beverages
         Beverage Cola = new Beverage("Cola", 2.85, 0.00);
-        Beverage GreenTea = new Beverage("Green Tea", 3.70, 0.85);
+        Beverage GreenTea = new Beverage("Green Tea", 3.70, 0.00);
         Beverage Coffee = new Beverage("Coffee", 2.70, 0.00);
         Beverage Tea = new Beverage("Tea", 2.70, 0.00);
-        Beverage RootBeer = new Beverage("Tom's Root Beer", 9.70, 6.85);
-        Beverage Mocktail = new Beverage("Mocktail", 15.90, 13.05);
+        Beverage RootBeer = new Beverage("Tom's Root Beer", 9.70, 0.00);
+        Beverage Mocktail = new Beverage("Mocktail", 15.90, 0.00);
 
         // Bundle Meals
         MenuItem BreakfastSet_Menu = new MenuItem("Breakfast Set", 7.90);
@@ -156,13 +156,23 @@ namespace TomCafe
             // If user has selected an item on the menu
             if (itemsListView.SelectedItem != null)
             {
-                // Clear cartsListView
-                cartsListView.ItemsSource = null;
-
+                // Check if selected item is bundle meal
                 if (itemsListView.SelectedItem is MenuItem)
                 {
                     oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
-                    AddToCart();
+                    
+                    // Check if selected bundle meal has beverage
+                    if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
+                    {
+                        // Find index of beverage in bundle meal's product list
+                        int index = oi.Item.ProductList.FindIndex(x => x is Beverage);
+                        // Set tradein price to price of default beverage
+                        foreach (Beverage b in Beverages)
+                        {
+                            b.TradeIn = oi.Item.ProductList[index].Price;
+                        }
+                        itemsListView.ItemsSource = Beverages;
+                    }
                 }
 
                 else
@@ -172,6 +182,8 @@ namespace TomCafe
                 }
 
                 displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+                // Clear cartsListView
+                cartsListView.ItemsSource = null;
                 cartsListView.ItemsSource = Order.ItemList;
             }
 

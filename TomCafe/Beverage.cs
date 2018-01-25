@@ -28,12 +28,20 @@ namespace TomCafe
         //Create methods
         public override double GetPrice()
         {
-            return Price;
+            if ((Price - TradeIn) > 0)
+            {
+                return Price - TradeIn;
+            }
+            else
+            {
+                return 0.00;
+            }
+
         }
 
         public override string ToString()
         {
-            return base.ToString();
+            return String.Format("{0}\n${1:0.00}", Name, GetPrice());
         }
 
     }
