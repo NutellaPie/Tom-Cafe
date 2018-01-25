@@ -184,7 +184,10 @@ namespace TomCafe
                     oi.Item.Price += oi.Item.ProductList[BeverageIndex].GetPrice();
                     AddToCart();
                     TradeInFlag = false;
+
+                    displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
                 }
+
                 else
                 {
                     // Check if selected item is bundle meal
@@ -221,7 +224,6 @@ namespace TomCafe
                     }
                 }
 
-                displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
                 // Clear cartsListView
                 cartsListView.ItemsSource = null;
                 cartsListView.ItemsSource = Order.ItemList;
