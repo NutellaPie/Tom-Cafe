@@ -71,6 +71,10 @@ namespace TomCafe
         // Create new Order
         Order Order = new Order();
 
+        // Tradein variables
+        bool TradeInFlag = false;
+        int BeverageIndex = 0;
+
 
         public MainPage()
         {
@@ -129,24 +133,36 @@ namespace TomCafe
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
         {
+            //Reset flag
+            TradeInFlag = false;
+
             // Display ValueMeals
             itemsListView.ItemsSource = ValueMeals;
         }
 
         private void sidesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Reset flag
+            TradeInFlag = false;
+
             // Display Sides
             itemsListView.ItemsSource = Sides;
         }
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Reset flag
+            TradeInFlag = false;
+
             // Display Beverages
             itemsListView.ItemsSource = Beverages;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
         {
+            //Reset flag
+            TradeInFlag = false;
+
             // Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
         }
@@ -156,22 +172,50 @@ namespace TomCafe
             // If user has selected an item on the menu
             if (itemsListView.SelectedItem != null)
             {
-                // Clear cartsListView
-                cartsListView.ItemsSource = null;
-
-                if (itemsListView.SelectedItem is MenuItem)
+                if (TradeInFlag)
                 {
-                    oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
+                    oi.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
+                    oi.Item.Price += oi.Item.ProductList[BeverageIndex].GetPrice();
                     AddToCart();
+                    TradeInFlag = false;
                 }
-
                 else
                 {
-                    oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
-                    AddToCart();
+                    // Check if selected item is bundle meal
+                    if (itemsListView.SelectedItem is MenuItem)
+                    {
+                        oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
+
+                        // Check if selected bundle meal has beverage
+                        if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
+                        {
+                            // Find index of beverage in bundle meal's product list
+                            BeverageIndex = oi.Item.ProductList.FindIndex(x => x is Beverage);
+                            // Set tradein price to price of default beverage
+                            foreach (Beverage b in Beverages)
+                            {
+                                b.TradeIn = oi.Item.ProductList[BeverageIndex].Price;
+                            }
+                            itemsListView.ItemsSource = Beverages;
+                            TradeInFlag = true;
+                        }
+
+                        else
+                        {
+                            AddToCart();
+                        }
+                    }
+
+                    else
+                    {
+                        oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
+                        AddToCart();
+                    }
                 }
 
                 displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+                // Clear cartsListView
+                cartsListView.ItemsSource = null;
                 cartsListView.ItemsSource = Order.ItemList;
             }
 
