@@ -43,6 +43,16 @@ namespace TomCafe
             return Price;
         }
 
+        public MenuItem Copy()
+        {
+            MenuItem m = new MenuItem(this.Name, this.Price);
+            foreach (Product p in this.ProductList)
+            {
+                m.ProductList.Add(p);
+            }
+            return m;
+        }
+
         public override string ToString()
         {
             String Items = "";

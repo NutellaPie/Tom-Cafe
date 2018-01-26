@@ -61,9 +61,9 @@ namespace TomCafe
                     Items += p.Name + ", ";
                 }
                 Items = Items.Trim(' ').Trim(',');
-                return String.Format("{0}\n({1}) x{2}\n${3:0.00}", Item.Name, Items, Quantity, Item.Price);
+                return String.Format("{0}\n({1}) x{2}\n${3:0.00}", Item.Name, Items, Quantity, GetItemTotalAmt());
             }
-            return String.Format("{0} x{1}\n${2:0.00}", Item.Name, Quantity, Item.Price);
+            return String.Format("{0} x{1}\n${2:0.00}", Item.Name, Quantity, GetItemTotalAmt());
         }
     }
 }

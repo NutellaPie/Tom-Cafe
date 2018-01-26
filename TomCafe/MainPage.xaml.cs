@@ -181,12 +181,12 @@ namespace TomCafe
                 // Run only when there is an option to trade in drink
                 if (TradeInFlag)
                 {
-                    // Creating new menu item for modified item
-                    MenuItem ModifiedItem = oi.Item;
-
-                    // Creating new order for modified item
-                    OrderItem oi_modified = new OrderItem(ModifiedItem);
+                    // Creating a copy of original order item
+                    OrderItem oi_modified = new OrderItem(oi.Item.Copy());
+                    
+                    // Modifing the productList and Price of new item
                     oi_modified.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
+                    oi_modified.Item.Price += ((Beverage)itemsListView.SelectedItem).GetPrice();
 
                     AddToCart(oi_modified);
                     TradeInFlag = false;
