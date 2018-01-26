@@ -181,15 +181,17 @@ namespace TomCafe
                 // Run only when there is an option to trade in drink
                 if (TradeInFlag)
                 {
+                    // Return flag back to false 
+                    TradeInFlag = false;
+
                     // Creating a copy of original order item
                     OrderItem oi_modified = new OrderItem(oi.Item.Copy());
                     
                     // Modifing the productList and Price of new item
                     oi_modified.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
 
+                    // Add to order and display confirmation message
                     Order.Add(oi_modified);
-                    TradeInFlag = false;
-
                     displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
 
                     // Return menu display to default after adding to cart
@@ -222,7 +224,9 @@ namespace TomCafe
 
                         else
                         {
+                            // Add to order and display confirmation message
                             Order.Add(oi);
+                            displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
                         }
                     }
 
@@ -230,9 +234,10 @@ namespace TomCafe
                     {
                         oi = new OrderItem(new MenuItem(((Product)itemsListView.SelectedItem).Name, ((Product)itemsListView.SelectedItem).Price));
 
-                        // Add product to product list of new order/menu item
+                        // Add to order and display confirmation message
                         oi.Item.ProductList.Add((Product)itemsListView.SelectedItem);
                         Order.Add(oi);
+                        displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
                     }
                 }
 

@@ -41,7 +41,8 @@ namespace TomCafe
         public double GetTotalPrice()
         {
             int Index = ProductList.FindIndex(x => x is Beverage);
-            if (Index != -1)
+            // To only add price during trade in of bundle meal
+            if ((Index != -1) && (ProductList.Count > 1))
             {
                 return Price + ProductList[Index].GetPrice();
             }
