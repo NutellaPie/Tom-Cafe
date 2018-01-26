@@ -188,7 +188,7 @@ namespace TomCafe
                     OrderItem oi_modified = new OrderItem(oi.Item.Copy());
                     
                     // Modifing the productList and Price of new item
-                    oi_modified.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
+                    oi_modified.Item.ProductList[BeverageIndex] = ((Beverage)itemsListView.SelectedItem).Copy();
 
                     // Add to order and display confirmation message
                     Order.Add(oi_modified);
@@ -257,6 +257,8 @@ namespace TomCafe
             {
                 displayText.Text = "Please select an item\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.";
             }
+
+            // Display receipt
             else
             {
                 //Increase the receipt number by 1 (Everytime order is confirmed)

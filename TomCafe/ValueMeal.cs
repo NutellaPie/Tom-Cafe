@@ -47,7 +47,10 @@ namespace TomCafe
             else
                 return false;
         }
-
+        public override Product Copy()
+        {
+            return new ValueMeal(this.Name, this.Price, this.StartTime, this.EndTime);
+        }
         public override string ToString()
         {
             return base.ToString();
