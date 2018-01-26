@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TomCafe
 {
-    class Beverage:Product
+    class Beverage : Product
     {
         //Create properties
         private double tradeIn;
@@ -20,7 +20,7 @@ namespace TomCafe
         //Create constructors
         public Beverage() { }
 
-        public Beverage(string n, double p, double ti):base(n, p)
+        public Beverage(string n, double p, double ti) : base(n, p)
         {
             TradeIn = ti;
         }
@@ -37,6 +37,10 @@ namespace TomCafe
                 return 0.00;
             }
 
+        }
+        public Beverage Copy()
+        {
+            return new Beverage(this.Name, this.Price, this.TradeIn);
         }
 
         public override string ToString()

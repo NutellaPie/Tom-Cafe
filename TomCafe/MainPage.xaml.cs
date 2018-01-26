@@ -186,9 +186,8 @@ namespace TomCafe
                     
                     // Modifing the productList and Price of new item
                     oi_modified.Item.ProductList[BeverageIndex] = (Beverage)itemsListView.SelectedItem;
-                    oi_modified.Item.Price += ((Beverage)itemsListView.SelectedItem).GetPrice();
 
-                    AddToCart(oi_modified);
+                    Order.Add(oi_modified);
                     TradeInFlag = false;
 
                     displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
@@ -207,6 +206,7 @@ namespace TomCafe
                         // Check if selected bundle meal has beverage
                         if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
                         {
+
                             // Find index of beverage in bundle meal's product list
                             BeverageIndex = oi.Item.ProductList.FindIndex(x => x is Beverage);
                             // Set tradein price to price of default beverage
@@ -222,7 +222,7 @@ namespace TomCafe
 
                         else
                         {
-                            AddToCart(oi);
+                            Order.Add(oi);
                         }
                     }
 
@@ -232,7 +232,7 @@ namespace TomCafe
 
                         // Add product to product list of new order/menu item
                         oi.Item.ProductList.Add((Product)itemsListView.SelectedItem);
-                        AddToCart(oi);
+                        Order.Add(oi);
                     }
                 }
 
@@ -321,25 +321,6 @@ namespace TomCafe
 
                 // Return customer to Bundle Meals menu
                 itemsListView.ItemsSource = BundleMeals;
-            }
-        }
-
-        // New Methods
-        private void AddToCart(OrderItem o)
-        {
-            // Check if selected item in already in the cart
-            int index = Order.ItemList.FindIndex(x => x.Item.ProductList.SequenceEqual(o.Item.ProductList));
-            if (index == -1)
-            {
-                // Add item to cart if item not in cart
-                o.AddQty();
-                Order.ItemList.Add(o);
-            }
-
-            else
-            {
-                // Add quantity if item already in cart
-                Order.ItemList[index].AddQty();
             }
         }
     }

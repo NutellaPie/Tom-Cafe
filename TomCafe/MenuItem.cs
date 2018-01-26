@@ -40,6 +40,11 @@ namespace TomCafe
         //Methods
         public double GetTotalPrice()
         {
+            int Index = ProductList.FindIndex(x => x is Beverage);
+            if (Index != -1)
+            {
+                return Price + ProductList[Index].GetPrice();
+            }
             return Price;
         }
 

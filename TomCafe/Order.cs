@@ -30,13 +30,25 @@ namespace TomCafe
 
         public void Add(OrderItem oi)
         {
-            ItemList.Add(oi);
+            // Check if selected item in already in the cart
+            int index = ItemList.FindIndex(x => x.Item.ProductList.SequenceEqual(oi.Item.ProductList));
+            if (index == -1)
+            {
+                // Add item to cart if item not in cart
+                oi.AddQty();
+                ItemList.Add(oi);
+            }
+
+            else
+            {
+                // Add quantity if item already in cart
+                ItemList[index].AddQty();
+            }
         }
 
         public void Remove(int index)
         {
-            if (itemList[index].Quantity >= 2)
-                itemList[index].Quantity -= 1;
+            if (itemList[index].RemoveQty()) { }
 
             else
                 itemList.RemoveAt(index);

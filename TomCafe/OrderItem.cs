@@ -37,7 +37,7 @@ namespace TomCafe
         }
         public bool RemoveQty()
         {
-            if (Quantity >= 1)
+            if (Quantity >= 2)
             {
                 Quantity -= 1;
                 return true;
@@ -49,7 +49,7 @@ namespace TomCafe
         }
         public double GetItemTotalAmt()
         {
-            return Item.Price * Quantity;
+            return Item.GetTotalPrice() * Quantity;
         }
         public override string ToString()
         {
