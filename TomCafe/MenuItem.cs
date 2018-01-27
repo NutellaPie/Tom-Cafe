@@ -54,7 +54,7 @@ namespace TomCafe
             MenuItem m = new MenuItem(this.Name, this.Price);
             foreach (Product p in this.ProductList)
             {
-                m.ProductList.Add(p.Copy());
+                m.ProductList.Add(p);
             }
             return m;
         }

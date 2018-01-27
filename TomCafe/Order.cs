@@ -31,18 +31,37 @@ namespace TomCafe
         public void Add(OrderItem oi)
         {
             // Check if selected item in already in the cart
-            int index = ItemList.FindIndex(x => x.Item.ProductList.SequenceEqual(oi.Item.ProductList));
-            if (index == -1)
+            int index = 0;
+            bool flag = false;
+            string check = "";
+            foreach (Product p in oi.Item.ProductList)
             {
-                // Add item to cart if item not in cart
-                oi.AddQty();
-                ItemList.Add(oi);
+                check += p.Name;
             }
 
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                string original = "";
+                foreach (Product p in ItemList[i].Item.ProductList)
+                {
+                    original += p.Name;
+                }
+                if (check == original)
+                {
+                    flag = true;
+                    index = i;
+                    break;
+                }
+            }
+            
+            if (flag)
+            {
+                ItemList[index].AddQty();
+            }
             else
             {
-                // Add quantity if item already in cart
-                ItemList[index].AddQty();
+                oi.AddQty();
+                ItemList.Add(oi);
             }
         }
 
