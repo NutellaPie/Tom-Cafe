@@ -127,8 +127,6 @@ namespace TomCafe
 
             // Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
-
-
         }
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
@@ -151,17 +149,20 @@ namespace TomCafe
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Reset flag
-            TradeInFlag = false;
-    
-            // Reset trade in value
-            foreach (Beverage b in Beverages)
+            if (TradeInFlag == false)
             {
-                b.TradeIn = 0.00;
+                // Reset trade in value
+                foreach (Beverage b in Beverages)
+                {
+                    b.TradeIn = 0.00;
+                }
+
+                // Display Beverages
+                itemsListView.ItemsSource = Beverages;
             }
 
-            // Display Beverages
-            itemsListView.ItemsSource = Beverages;
+            //Reset flag
+            TradeInFlag = false;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
@@ -192,7 +193,7 @@ namespace TomCafe
 
                     // Add to order and display confirmation message
                     Order.Add(oi_modified);
-                    displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi.Item.Name, Order.GetTotalAmt());
+                    displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi_modified.Item.Name, Order.GetTotalAmt());
 
                     // Return menu display to default after adding to cart
                     itemsListView.ItemsSource = BundleMeals;
@@ -208,7 +209,6 @@ namespace TomCafe
                         // Check if selected bundle meal has beverage
                         if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
                         {
-
                             // Find index of beverage in bundle meal's product list
                             BeverageIndex = oi.Item.ProductList.FindIndex(x => x is Beverage);
                             // Set tradein price to price of default beverage
