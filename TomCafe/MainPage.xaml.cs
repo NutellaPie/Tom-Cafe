@@ -265,17 +265,60 @@ namespace TomCafe
                     // Add selected item to product list
                     CustomiseBundle_Menu.ProductList.Add((Beverage)itemsListView.SelectedItem);
 
-                    // Calculate price of customised bundle
-                    double Total = 0.00;
+                    // Check if selected items already make up a premade bundle
+                    String Check = "";
+                    int Index = 0;
+                    bool PremadeFlag = false;
                     foreach (Product p in CustomiseBundle_Menu.ProductList)
                     {
-                        Total += p.Price;
+                        if (p is Beverage)
+                        {
+                            continue;
+                        }
+                        Check += p.Name;
                     }
-                    CustomiseBundle_Menu.Price = Total * 0.9;
 
-                    // Add to order and display confirmation message
-                    Order.Add(new OrderItem(CustomiseBundle_Menu.Copy()));
-                    displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", CustomiseBundle_Menu.Name, Order.GetTotalAmt());
+                    for (int i = 0; i < BundleMeals.Count; i++)
+                    {
+                        String Premade = "";
+                        foreach (Product p in BundleMeals[i].ProductList)
+                        {
+                            if (p is Beverage)
+                            {
+                                continue;
+                            }
+                            Premade += p.Name;
+                        }
+
+                        if (Check == Premade)
+                        {
+                            PremadeFlag = true;
+                            Index = i;
+                            break;
+                        }
+                    }
+
+                    // Run if selected items is already a premade bundle
+                    if (PremadeFlag)
+                    {
+                        displayText.Text = String.Format("The products you have selected is already a bundle meal ({0})\nPlease select '{0}' in the list\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", BundleMeals[Index].Name);
+                    }
+
+                    // Run if selected items do not make up a premade bundle
+                    else
+                    {
+                        // Calculate price of customised bundle
+                        double Total = 0.00;
+                        foreach (Product p in CustomiseBundle_Menu.ProductList)
+                        {
+                            Total += p.Price;
+                        }
+                        CustomiseBundle_Menu.Price = Total * 0.9;
+
+                        // Add to order and display confirmation message
+                        Order.Add(new OrderItem(CustomiseBundle_Menu.Copy()));
+                        displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", CustomiseBundle_Menu.Name, Order.GetTotalAmt());
+                    }
 
                     // Reset Customise menu back to default
                     CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
