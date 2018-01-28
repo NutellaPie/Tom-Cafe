@@ -291,7 +291,6 @@ namespace TomCafe
                     {
                         oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
 
-
                         // Customise Bundle
                         if (oi.Item.Name == "Customise Bundle")
                         {
