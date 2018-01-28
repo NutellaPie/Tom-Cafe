@@ -426,6 +426,13 @@ namespace TomCafe
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            // Reset flags & Customise Bundle
+            TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
+
             // If customer attempts to clear a list with menu items
             if (Order.ItemList.Count != 0)
             {
@@ -454,6 +461,13 @@ namespace TomCafe
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
+            // Reset flags & Customise Bundle
+            TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
+
             // If customer selected an item correctly
             if (cartsListView.SelectedItem is OrderItem)
             {
