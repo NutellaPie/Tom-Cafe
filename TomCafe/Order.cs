@@ -89,7 +89,7 @@ namespace TomCafe
 
             for (int i = 0; i < ItemList.Count; i++)
             {
-                Final = "";
+                Items = "";
 
                 if (itemList[i].Item.ProductList.Count > 1)
                 {
@@ -98,9 +98,9 @@ namespace TomCafe
                         Items += "\t" + p.Name + "\n";
                     }
                 }
-                Final += String.Format("{0}  {1}\t\t${2:0.00}\n{3}", ItemList[i].Quantity, itemList[i].Item.Name, ItemList[i].GetItemTotalAmt(), Items);
+                Final += String.Format("{0}  {1}${2:0.00}\n{3}\n", ItemList[i].Quantity, itemList[i].Item.Name.PadRight(27), ItemList[i].GetItemTotalAmt(), Items);
             }
-            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Final, "Total".PadRight(27), GetTotalAmt());
+            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Final, "Total".PadRight(30), GetTotalAmt());
         }
 
         //Backup
