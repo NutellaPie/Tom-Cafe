@@ -234,6 +234,9 @@ namespace TomCafe
                     // Add selected item to product list
                     CustomiseBundle_Menu.ProductList.Add((ValueMeal)itemsListView.SelectedItem);
 
+                    //Display selected items for customised bundle in displayText
+                    displayText.Text = String.Format("Value Meal selected: {0}", CustomiseBundle_Menu.ProductList[0].Name);
+
                     // Display Sides list
                     itemsListView.ItemsSource = Sides;
 
@@ -249,6 +252,9 @@ namespace TomCafe
 
                     // Add selected item to product list
                     CustomiseBundle_Menu.ProductList.Add((Side)itemsListView.SelectedItem);
+
+                    //Display selected items for customised bundle in displayText
+                    displayText.Text = String.Format("Value Meal selected: {0}\nSide selected: {1}", CustomiseBundle_Menu.ProductList[0].Name, CustomiseBundle_Menu.ProductList[1].Name);
 
                     // Display Sides list
                     itemsListView.ItemsSource = Beverages;
@@ -343,7 +349,7 @@ namespace TomCafe
                                 b.TradeIn = 0.00;
                             }
 
-                            // Display list of beverages for tradein
+                            // Display list of value meals
                             itemsListView.ItemsSource = ValueMeals;
                             CustomiseBundleFlag = true;
                         }
