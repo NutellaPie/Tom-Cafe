@@ -33,7 +33,6 @@ namespace TomCafe
 
         //Methods
         public abstract double GetPrice();
-        public abstract Product Copy();
         public override string ToString()
         {
             return String.Format("{0}\n${1:0.00}", Name, Price);

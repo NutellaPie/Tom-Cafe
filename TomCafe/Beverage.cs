@@ -38,7 +38,7 @@ namespace TomCafe
             }
 
         }
-        public override Product Copy()
+        public Beverage Copy()
         {
             return new Beverage(this.Name, this.Price, this.TradeIn);
         }

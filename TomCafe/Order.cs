@@ -27,7 +27,6 @@ namespace TomCafe
 
         //Create constructors
         public Order() { }
-
         public void Add(OrderItem oi)
         {
             // Check if selected item in already in the cart
@@ -64,7 +63,6 @@ namespace TomCafe
                 ItemList.Add(oi);
             }
         }
-
         public void Remove(int index)
         {
             if (itemList[index].RemoveQty()) { }
@@ -72,7 +70,6 @@ namespace TomCafe
             else
                 itemList.RemoveAt(index);
         }
-
         public double GetTotalAmt()
         {
             double price = 0;
@@ -84,7 +81,6 @@ namespace TomCafe
 
             return price;
         }
-
         public override string ToString()
         {
             String OrderList = "";

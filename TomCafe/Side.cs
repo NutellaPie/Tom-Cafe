@@ -17,10 +17,6 @@ namespace TomCafe
         {
             return Price;
         }
-        public override Product Copy()
-        {
-            return new Side(this.Name, this.Price);
-        }
         public override string ToString()
         {
             return base.ToString();
