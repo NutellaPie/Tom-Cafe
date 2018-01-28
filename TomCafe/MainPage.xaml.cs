@@ -286,6 +286,11 @@ namespace TomCafe
 
                     for (int i = 0; i < BundleMeals.Count; i++)
                     {
+                        if (BundleMeals[i].Name == "Customise Bundle")
+                        {
+                            continue;
+                        }
+
                         String Premade = "";
                         foreach (Product p in BundleMeals[i].ProductList)
                         {
