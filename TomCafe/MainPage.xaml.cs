@@ -48,6 +48,7 @@ namespace TomCafe
         MenuItem BreakfastSet_Menu = new MenuItem("Breakfast Set", 7.90);
         MenuItem HamburgerCombo_Menu = new MenuItem("Hamburger Combo", 10.20);
         MenuItem DinnerSet_Menu = new MenuItem("Dinner Set", 18.50);
+        MenuItem CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
         // Setting variable for retrieving today's DateTime
         DateTime Now = DateTime.Now;
@@ -75,6 +76,11 @@ namespace TomCafe
         bool TradeInFlag = false;
         int BeverageIndex = 0;
 
+        // Customise Bundle Variables
+        bool CustomiseBundleFlag = false;
+        bool CustomiseSideFlag = false;
+        bool CustomiseBeverageFlag = false;
+
 
         public MainPage()
         {
@@ -100,14 +106,19 @@ namespace TomCafe
                 BundleMeals.Add(HamburgerCombo_Menu);
                 ValueMeals.Add(Hamburger);
             }
+
             // Add Nasi Lemak as it is always available
             ValueMeals.Add(NasiLemak);
+
             // Add Dinner Set & Steak if time within availability of Ribeye Steak
             if (Steak.IsAvailable())
             {
                 BundleMeals.Add(DinnerSet_Menu);
                 ValueMeals.Add(Steak);
             }
+
+            // Add option for Customise bundle
+            BundleMeals.Add(CustomiseBundle_Menu);
             // ---------------------------------------------------------------------------------------------------------------------------------------------
 
             // Master List
@@ -131,8 +142,12 @@ namespace TomCafe
 
         private void mainsButton_Click(object sender, RoutedEventArgs e)
         {
-            //Reset flag
+            // Reset flags & Customise Bundle
             TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
             // Display ValueMeals
             itemsListView.ItemsSource = ValueMeals;
@@ -140,8 +155,12 @@ namespace TomCafe
 
         private void sidesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Reset flag
+            // Reset flags & Customise Bundle
             TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
             // Display Sides
             itemsListView.ItemsSource = Sides;
@@ -149,26 +168,33 @@ namespace TomCafe
 
         private void beveragesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TradeInFlag == false)
-            {
-                // Reset trade in value
-                foreach (Beverage b in Beverages)
-                {
-                    b.TradeIn = 0.00;
-                }
+            // Reset flags & Customise Bundle
+            TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
-                // Display Beverages
-                itemsListView.ItemsSource = Beverages;
+            // Reset trade in value
+            foreach (Beverage b in Beverages)
+            {
+                b.TradeIn = 0.00;
             }
 
-            //Reset flag
-            TradeInFlag = false;
+            // Refresh Listview
+            itemsListView.ItemsSource = null;
+            // Display Beverages
+            itemsListView.ItemsSource = Beverages;
         }
 
         private void bundlesButton_Click(object sender, RoutedEventArgs e)
         {
-            //Reset flag
+            // Reset flags & Customise Bundle
             TradeInFlag = false;
+            CustomiseBundleFlag = false;
+            CustomiseSideFlag = false;
+            CustomiseBeverageFlag = false;
+            CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
             // Display Default Menu(Bundle Set)
             itemsListView.ItemsSource = BundleMeals;
@@ -182,18 +208,77 @@ namespace TomCafe
                 // Run only when there is an option to trade in drink
                 if (TradeInFlag)
                 {
-                    // Return flag back to false 
+                    // Return flags back to false 
                     TradeInFlag = false;
 
                     // Creating a copy of original order item
                     OrderItem oi_modified = new OrderItem(oi.Item.Copy());
-                    
+
                     // Modifing the productList and Price of new item
                     oi_modified.Item.ProductList[BeverageIndex] = ((Beverage)itemsListView.SelectedItem).Copy();
 
                     // Add to order and display confirmation message
                     Order.Add(oi_modified);
                     displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", oi_modified.Item.Name, Order.GetTotalAmt());
+
+                    // Return menu display to default after adding to cart
+                    itemsListView.ItemsSource = BundleMeals;
+                }
+
+                // Run only when customise bundle is selected
+                else if (CustomiseBundleFlag)
+                {
+                    // Return flag back to false 
+                    CustomiseBundleFlag = false;
+
+                    // Add selected item to product list
+                    CustomiseBundle_Menu.ProductList.Add((ValueMeal)itemsListView.SelectedItem);
+
+                    // Display Sides list
+                    itemsListView.ItemsSource = Sides;
+
+                    // Set flag for next step
+                    CustomiseSideFlag = true;
+                }
+
+                // Select side for customise bundle
+                else if (CustomiseSideFlag)
+                {
+                    // Return flag back to false 
+                    CustomiseSideFlag = false;
+
+                    // Add selected item to product list
+                    CustomiseBundle_Menu.ProductList.Add((Side)itemsListView.SelectedItem);
+
+                    // Display Sides list
+                    itemsListView.ItemsSource = Beverages;
+
+                    // Set flag for next step
+                    CustomiseBeverageFlag = true;
+                }
+
+                else if (CustomiseBeverageFlag)
+                {
+                    // Return flag back to false 
+                    CustomiseBeverageFlag = false;
+
+                    // Add selected item to product list
+                    CustomiseBundle_Menu.ProductList.Add((Beverage)itemsListView.SelectedItem);
+
+                    // Calculate price of customised bundle
+                    double Total = 0.00;
+                    foreach (Product p in CustomiseBundle_Menu.ProductList)
+                    {
+                        Total += p.Price;
+                    }
+                    CustomiseBundle_Menu.Price = Total * 0.9;
+
+                    // Add to order and display confirmation message
+                    Order.Add(new OrderItem(CustomiseBundle_Menu.Copy()));
+                    displayText.Text = String.Format("{0} added.\nTotal: ${1:0.00}\n\nWelcome to Tom's Cafe!\n\nChoose your item from the menu.", CustomiseBundle_Menu.Name, Order.GetTotalAmt());
+
+                    // Reset Customise menu back to default
+                    CustomiseBundle_Menu = new MenuItem("Customise Bundle", 0.00);
 
                     // Return menu display to default after adding to cart
                     itemsListView.ItemsSource = BundleMeals;
@@ -206,8 +291,23 @@ namespace TomCafe
                     {
                         oi = new OrderItem((MenuItem)itemsListView.SelectedItem);
 
+
+                        // Customise Bundle
+                        if (oi.Item.Name == "Customise Bundle")
+                        {
+                            // Reset trade in value
+                            foreach (Beverage b in Beverages)
+                            {
+                                b.TradeIn = 0.00;
+                            }
+
+                            // Display list of beverages for tradein
+                            itemsListView.ItemsSource = ValueMeals;
+                            CustomiseBundleFlag = true;
+                        }
+
                         // Check if selected bundle meal has beverage
-                        if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
+                        else if (oi.Item.ProductList.FindIndex(x => x is Beverage) != -1)
                         {
                             // Find index of beverage in bundle meal's product list
                             BeverageIndex = oi.Item.ProductList.FindIndex(x => x is Beverage);

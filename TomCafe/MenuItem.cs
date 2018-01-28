@@ -42,7 +42,7 @@ namespace TomCafe
         {
             int Index = ProductList.FindIndex(x => x is Beverage);
             // To only add price during trade in of bundle meal
-            if ((Index != -1) && (ProductList.Count > 1))
+            if ((Index != -1) && (ProductList.Count > 1) && (Name != "Customise Bundle"))
             {
                 return Price + ProductList[Index].GetPrice();
             }
@@ -61,15 +61,22 @@ namespace TomCafe
 
         public override string ToString()
         {
-            String Items = "";
-            foreach (Product p in ProductList)
+            if (Name == "Customise Bundle")
             {
-                Items += p.Name + ", ";
+                return String.Format("Customise Bundle\n(One Value Meal, One Side, One Beverage)\nGet 10% off regular prices");
             }
+            else
+            {
+                String Items = "";
+                foreach (Product p in ProductList)
+                {
+                    Items += p.Name + ", ";
+                }
 
-            Items = Items.Trim(' ').Trim(',');
+                Items = Items.Trim(' ').Trim(',');
 
-            return String.Format("{0}\n({1})\n${2:0.00}", Name, Items, Price);
+                return String.Format("{0}\n({1})\n${2:0.00}", Name, Items, Price);
+            }
         }
     }
 }
