@@ -95,12 +95,12 @@ namespace TomCafe
                 {
                     foreach (Product p in ItemList[i].Item.ProductList)
                     {
-                        Items += "\t" + p.Name + "\n";
+                        Items += "\t  " + p.Name + "\n";
                     }
                 }
-                Final += String.Format("{0}{1}${2:0.00}\n{3}\n", ItemList[i].Quantity.ToString().PadRight(2), itemList[i].Item.Name.PadRight(27), ItemList[i].GetItemTotalAmt(), Items);
+                Final += String.Format("{0} {1}${2:0.00}\n{3}\n", ItemList[i].Quantity.ToString().PadRight(5), itemList[i].Item.Name.PadRight(27), ItemList[i].GetItemTotalAmt(), Items);
             }
-            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Final, "Total".PadRight(30), GetTotalAmt());
+            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Final, "Total".PadRight(33), GetTotalAmt());
         }
     }
 }
