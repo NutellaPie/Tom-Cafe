@@ -87,10 +87,10 @@ namespace TomCafe
 
         public override string ToString()
         {
+            String Items = "";
+
             for (int i = 0; i<ItemList.Count; i++)
             {
-                String Items = "";
-
                 if (itemList[i].Item.ProductList.Count > 1)
                 {   
                     foreach (Product p in ItemList[i].Item.ProductList)
@@ -98,11 +98,12 @@ namespace TomCafe
                         Items += p.Name + ", ";
                     }
                     Items = Items.Trim(' ').Trim(',');
-                    return String.Format("{0}\n({1}) x{2}\n${3:0.00}", itemList[i].Item.Name, Items, itemList[i].Quantity, itemList[i].GetItemTotalAmt());
+                    //return String.Format("{0}\n({1}) x{2}\n${3:0.00}", itemList[i].Item.Name, Items, itemList[i].Quantity, itemList[i].GetItemTotalAmt());
+                    return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n({3})\n{4}${5:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, itemList[i].Item.Name, Items, "Total".PadRight(37), GetTotalAmt());
                 }
-                return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Items, "Total".PadRight(37), GetTotalAmt());
+                
             }
-            return "hi";
+            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Items, "Total".PadRight(37), GetTotalAmt());
 
 
             //String OrderList = "";
