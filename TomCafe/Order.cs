@@ -10,15 +10,13 @@ namespace TomCafe
     {
         //Create properties
         private int orderNo;
+        private List<OrderItem> itemList = new List<OrderItem>();
 
         public int OrderNo
         {
             get { return orderNo; }
             set { orderNo = value; }
         }
-
-        private List<OrderItem> itemList = new List<OrderItem>();
-
         public List<OrderItem> ItemList
         {
             get { return itemList; }
@@ -33,11 +31,14 @@ namespace TomCafe
             int index = 0;
             bool flag = false;
             string check = "";
+
+            // Get names of all products in productlist
             foreach (Product p in oi.Item.ProductList)
             {
                 check += p.Name;
             }
 
+            // For every menuitem in itemlist, get the names of all products in productlist and compare against product to add
             for (int i = 0; i < ItemList.Count; i++)
             {
                 string original = "";
@@ -53,10 +54,13 @@ namespace TomCafe
                 }
             }
 
+            // If the product already exists in the cart
             if (flag)
             {
                 ItemList[index].AddQty();
             }
+
+            // If product does not exist in cart
             else
             {
                 oi.AddQty();
