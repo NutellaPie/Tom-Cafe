@@ -52,7 +52,7 @@ namespace TomCafe
                     break;
                 }
             }
-            
+
             if (flag)
             {
                 ItemList[index].AddQty();
@@ -83,14 +83,44 @@ namespace TomCafe
         }
         public override string ToString()
         {
-            String OrderList = "";
-            foreach (OrderItem o in ItemList)
-            {
-                OrderList += String.Format("{0} {1} ${2:0.00}", o.Quantity.ToString().PadRight(5), o.Item.Name.PadRight(30), o.GetItemTotalAmt()) + "\n";
-            }
+            String Items = "";
 
-            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, OrderList, "Total".PadRight(37), GetTotalAmt());
+            for (int i = 0; i<ItemList.Count; i++)
+            {
+                if (itemList[i].Item.ProductList.Count > 1)
+                {   
+                    foreach (Product p in ItemList[i].Item.ProductList)
+                    {
+                        Items += p.Name + ", ";
+                    }
+                    Items = Items.Trim(' ').Trim(',');
+                    //return String.Format("{0}\n({1}) x{2}\n${3:0.00}", itemList[i].Item.Name, Items, itemList[i].Quantity, itemList[i].GetItemTotalAmt());
+                    return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n({3})\n{4}${5:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, itemList[i].Item.Name, Items, "Total".PadRight(37), GetTotalAmt());
+                }
+                
+            }
+            return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, Items, "Total".PadRight(37), GetTotalAmt());
+
+
+            //String OrderList = "";
+            //foreach (OrderItem o in ItemList)
+            //{
+            //    OrderList += String.Format("{0} {1} ${2:0.00}", o.Quantity.ToString().PadRight(5), o.Item.Name.PadRight(30), o.GetItemTotalAmt()) + "\n";
+            //}
+
+            //return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, OrderList, "Total".PadRight(37), GetTotalAmt());
         }
+
+        //public override string ToString()
+        //{
+        //    String OrderList = "";
+        //    foreach (OrderItem o in ItemList)
+        //    {
+        //        OrderList += String.Format("{0} {1} ${2:0.00}", o.Quantity.ToString().PadRight(5), o.Item.Name.PadRight(30), o.GetItemTotalAmt()) + "\n";
+        //    }
+
+        //    return String.Format("Receipt #{0}\n{1:dd/MM/yyyy HH:mm}\n\n{2}\n{3}${4:0.00}", OrderNo.ToString().PadLeft(5, '0'), DateTime.Now, OrderList, "Total".PadRight(37), GetTotalAmt());
+        //}
 
     }
 }
