@@ -28,7 +28,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="bundlesButton" Grid.RowSpan="2" Content="Bundle&#xa;Meals" Click="bundlesButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"/>
+        <Button x:Name="bundlesButton" Grid.RowSpan="2" Content="Bundle&#xa;Meals" Click="bundlesButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"></Button>
         <Button Grid.Row="2" Grid.RowSpan="2" x:Name="mainsButton" Content="Value&#xa;Meals" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10" Click="mainsButton_Click"/>
         <Button Grid.Row="4" Grid.RowSpan="2" x:Name="sidesButton" Content="Sides" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  Click="sidesButton_Click"/>
         <Button Grid.Row="6" Grid.RowSpan="2" x:Name="beveragesButton" Content="Beverages" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Click="beveragesButton_Click"/>
