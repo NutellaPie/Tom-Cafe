@@ -121,9 +121,6 @@ namespace TomCafe
             BundleMeals.Add(CustomiseBundle_Menu);
             // ---------------------------------------------------------------------------------------------------------------------------------------------
 
-            // Master List
-            MenuList = new List<System.Collections.IList> { BundleMeals, ValueMeals, Sides, Beverages };
-
             // Adding Products to Bundle Meals items
             // -------------------------------------------------------------------------------------------
             // Breakfast Set
@@ -275,6 +272,8 @@ namespace TomCafe
                     String Check = "";
                     int Index = 0;
                     bool PremadeFlag = false;
+
+                    // Get names of products in customised bundle (except beverage)
                     foreach (Product p in CustomiseBundle_Menu.ProductList)
                     {
                         if (p is Beverage)
@@ -284,6 +283,7 @@ namespace TomCafe
                         Check += p.Name;
                     }
 
+                    // Get names of products in current bundles (except beverage)
                     for (int i = 0; i < BundleMeals.Count; i++)
                     {
                         if (BundleMeals[i].Name == "Customise Bundle")
@@ -301,6 +301,7 @@ namespace TomCafe
                             Premade += p.Name;
                         }
 
+                        // Compare the product lists
                         if (Check == Premade)
                         {
                             PremadeFlag = true;

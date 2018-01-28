@@ -49,6 +49,7 @@ namespace TomCafe
             return Price;
         }
 
+        // Method to clone MenuItem
         public MenuItem Copy()
         {
             MenuItem m = new MenuItem(this.Name, this.Price);
